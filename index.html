@@ -11,15 +11,15 @@
 <style>
 :root{
   --accent:#b5654a;
-  --ink:#2b2622;
-  --ink-10:rgba(43,38,34,.1);
-  --ink-14:rgba(43,38,34,.14);
-  --ink-45:rgba(43,38,34,.45);
-  --ink-50:rgba(43,38,34,.5);
-  --ink-60:rgba(43,38,34,.6);
-  --ink-70:rgba(43,38,34,.7);
-  --bg-screen:#f7f3ee;
-  --tint-final:#f2e3de;
+  --ink:#332c27;
+  --ink-10:rgba(43,38,34,.06);
+  --ink-14:rgba(43,38,34,.08);
+  --ink-45:rgba(43,38,34,.4);
+  --ink-50:rgba(43,38,34,.46);
+  --ink-60:rgba(43,38,34,.55);
+  --ink-70:rgba(43,38,34,.66);
+  --bg-screen:#fbf9f5;
+  --tint-final:#f8ede6;
   --white:#ffffff;
   --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --sans:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
@@ -29,12 +29,12 @@
   :root:not([data-theme="light"]){
     --accent:#d98a68;
     --ink:#f2ece5;
-    --ink-10:rgba(242,236,229,.12);
-    --ink-14:rgba(242,236,229,.16);
-    --ink-45:rgba(242,236,229,.5);
-    --ink-50:rgba(242,236,229,.55);
-    --ink-60:rgba(242,236,229,.65);
-    --ink-70:rgba(242,236,229,.75);
+    --ink-10:rgba(242,236,229,.1);
+    --ink-14:rgba(242,236,229,.13);
+    --ink-45:rgba(242,236,229,.48);
+    --ink-50:rgba(242,236,229,.53);
+    --ink-60:rgba(242,236,229,.63);
+    --ink-70:rgba(242,236,229,.73);
     --bg-screen:#211c19;
     --tint-final:#33241d;
     --white:#2b2521;
@@ -43,12 +43,12 @@
 :root[data-theme="dark"]{
   --accent:#d98a68;
   --ink:#f2ece5;
-  --ink-10:rgba(242,236,229,.12);
-  --ink-14:rgba(242,236,229,.16);
-  --ink-45:rgba(242,236,229,.5);
-  --ink-50:rgba(242,236,229,.55);
-  --ink-60:rgba(242,236,229,.65);
-  --ink-70:rgba(242,236,229,.75);
+  --ink-10:rgba(242,236,229,.1);
+  --ink-14:rgba(242,236,229,.13);
+  --ink-45:rgba(242,236,229,.48);
+  --ink-50:rgba(242,236,229,.53);
+  --ink-60:rgba(242,236,229,.63);
+  --ink-70:rgba(242,236,229,.73);
   --bg-screen:#211c19;
   --tint-final:#33241d;
   --white:#2b2521;
@@ -105,7 +105,7 @@ body[data-tint="1"]{background:var(--tint-final);}
 }
 .h1{
   font-family:var(--serif);
-  font-weight:600;
+  font-weight:500;
   font-size:2.1rem;
   line-height:1.15;
   color:var(--ink);
@@ -168,7 +168,7 @@ body[data-tint="1"]{background:var(--tint-final);}
 }
 .h1-question{
   font-family:var(--serif);
-  font-weight:600;
+  font-weight:500;
   font-size:1.7rem;
   line-height:1.25;
   color:var(--ink);
@@ -249,7 +249,7 @@ body[data-tint="1"]{background:var(--tint-final);}
 }
 .cal__month{
   font-family:var(--serif);
-  font-weight:600;
+  font-weight:500;
   font-size:1.15rem;
   text-align:center;
   margin:0 0 .9rem;
@@ -363,7 +363,7 @@ body[data-tint="1"]{background:var(--tint-final);}
 @keyframes pop{from{opacity:0; transform:scale(.5);} to{opacity:1; transform:scale(1);}}
 .h1-final{
   font-family:var(--serif);
-  font-weight:600;
+  font-weight:500;
   font-size:1.85rem;
   color:var(--ink);
   margin:1.1rem 0 .6rem;
