@@ -22,10 +22,16 @@
   --bg-screen:#fbf9f5;
   --tint-final:#f8ede6;
   --white:#ffffff;
-  --booked:#6f93b5;
-  --booked-wash:#e9f0f6;
-  --booked-line:#cddded;
   --range-wash:#f6e7e0;
+  --g1:#5f88ad;
+  --g1-wash:#e7eff6;
+  --g1-line:#c6d9e9;
+  --g2:#a8842f;
+  --g2-wash:#f9f0d8;
+  --g2-line:#ead7a4;
+  --g3:#5f8a62;
+  --g3-wash:#e7f0e7;
+  --g3-line:#c7dcc8;
   --sans:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   --ease:cubic-bezier(.2,.7,.3,1);
 }
@@ -287,8 +293,13 @@ body[data-tint="1"]{background:var(--tint-final);}
   transition:background-color .18s var(--ease), border-color .18s var(--ease), color .18s var(--ease), transform .15s var(--ease);
 }
 
-.day--booked{opacity:1; color:var(--booked); font-weight:500;}
-.day--booked .num{background:var(--booked-wash); border-color:var(--booked-line);}
+.day--booked{opacity:1; font-weight:500;}
+.day--g1{color:var(--g1);}
+.day--g1 .num{background:var(--g1-wash); border-color:var(--g1-line);}
+.day--g2{color:var(--g2);}
+.day--g2 .num{background:var(--g2-wash); border-color:var(--g2-line);}
+.day--g3{color:var(--g3);}
+.day--g3 .num{background:var(--g3-wash); border-color:var(--g3-line);}
 
 .day--free{
   cursor:pointer;
@@ -333,7 +344,10 @@ body[data-tint="1"]{background:var(--tint-final);}
   display:block;
 }
 .cal__legend .sw-free{border:1px solid var(--accent); background:transparent;}
-.cal__legend .sw-booked{background:var(--booked-wash); border:1px solid var(--booked-line);}
+.cal__legend .sw-g1{background:var(--g1-wash); border:1px solid var(--g1-line);}
+.cal__legend .sw-g2{background:var(--g2-wash); border:1px solid var(--g2-line);}
+.cal__legend .sw-g3{background:var(--g3-wash); border:1px solid var(--g3-line);}
+.cal__legend .swatches{display:flex; gap:.2rem;}
 
 .counter{
   font-size:.82rem;
@@ -519,37 +533,37 @@ body[data-tint="1"]{background:var(--tint-final);}
           <span class="day day--pad" aria-hidden="true"></span>
           <span class="day" style="--d:5"><span class="day__bar"></span><span class="num">1</span></span>
           <span class="day" style="--d:6"><span class="day__bar"></span><span class="num">2</span></span>
-          <span class="day" style="--d:7"><span class="day__bar"></span><span class="num">3</span></span>
-          <span class="day" style="--d:8"><span class="day__bar"></span><span class="num">4</span></span>
-          <span class="day" style="--d:9"><span class="day__bar"></span><span class="num">5</span></span>
-          <span class="day day--booked" style="--d:10" title="Занято"><span class="day__bar"></span><span class="num">6</span></span>
-          <span class="day day--booked" style="--d:11" title="Занято"><span class="day__bar"></span><span class="num">7</span></span>
-          <span class="day day--booked" style="--d:12" title="Занято"><span class="day__bar"></span><span class="num">8</span></span>
-          <span class="day" style="--d:13"><span class="day__bar"></span><span class="num">9</span></span>
-          <span class="day" style="--d:14"><span class="day__bar"></span><span class="num">10</span></span>
-          <span class="day" style="--d:15"><span class="day__bar"></span><span class="num">11</span></span>
-          <span class="day" style="--d:16"><span class="day__bar"></span><span class="num">12</span></span>
-          <span class="day day--booked" style="--d:17" title="Занято"><span class="day__bar"></span><span class="num">13</span></span>
-          <span class="day day--booked" style="--d:18" title="Занято"><span class="day__bar"></span><span class="num">14</span></span>
-          <span class="day day--booked" style="--d:19" title="Занято"><span class="day__bar"></span><span class="num">15</span></span>
-          <span class="day" style="--d:20"><span class="day__bar"></span><span class="num">16</span></span>
-          <span class="day" style="--d:21"><span class="day__bar"></span><span class="num">17</span></span>
-          <span class="day" style="--d:22"><span class="day__bar"></span><span class="num">18</span></span>
-          <span class="day day--booked" style="--d:23" title="Занято"><span class="day__bar"></span><span class="num">19</span></span>
-          <span class="day day--booked" style="--d:24" title="Занято"><span class="day__bar"></span><span class="num">20</span></span>
-          <span class="day day--booked" style="--d:25" title="Занято"><span class="day__bar"></span><span class="num">21</span></span>
+          <span class="day day--booked day--g1" style="--d:7" title="Занято"><span class="day__bar"></span><span class="num">3</span></span>
+          <span class="day day--booked day--g1" style="--d:8" title="Занято"><span class="day__bar"></span><span class="num">4</span></span>
+          <span class="day day--booked day--g1" style="--d:9" title="Занято"><span class="day__bar"></span><span class="num">5</span></span>
+          <span class="day" style="--d:10"><span class="day__bar"></span><span class="num">6</span></span>
+          <span class="day" style="--d:11"><span class="day__bar"></span><span class="num">7</span></span>
+          <span class="day" style="--d:12"><span class="day__bar"></span><span class="num">8</span></span>
+          <span class="day day--booked day--g2" style="--d:13" title="Занято"><span class="day__bar"></span><span class="num">9</span></span>
+          <span class="day day--booked day--g2" style="--d:14" title="Занято"><span class="day__bar"></span><span class="num">10</span></span>
+          <span class="day day--booked day--g2" style="--d:15" title="Занято"><span class="day__bar"></span><span class="num">11</span></span>
+          <span class="day day--booked day--g2" style="--d:16" title="Занято"><span class="day__bar"></span><span class="num">12</span></span>
+          <span class="day" style="--d:17"><span class="day__bar"></span><span class="num">13</span></span>
+          <span class="day" style="--d:18"><span class="day__bar"></span><span class="num">14</span></span>
+          <span class="day" style="--d:19"><span class="day__bar"></span><span class="num">15</span></span>
+          <span class="day day--booked day--g3" style="--d:20" title="Занято"><span class="day__bar"></span><span class="num">16</span></span>
+          <span class="day day--booked day--g3" style="--d:21" title="Занято"><span class="day__bar"></span><span class="num">17</span></span>
+          <span class="day day--booked day--g3" style="--d:22" title="Занято"><span class="day__bar"></span><span class="num">18</span></span>
+          <span class="day day--booked day--g3" style="--d:23" title="Занято"><span class="day__bar"></span><span class="num">19</span></span>
+          <span class="day day--booked day--g3" style="--d:24" title="Занято"><span class="day__bar"></span><span class="num">20</span></span>
+          <span class="day" style="--d:25"><span class="day__bar"></span><span class="num">21</span></span>
           <span class="day" style="--d:26"><span class="day__bar"></span><span class="num">22</span></span>
-          <span class="day day--booked" style="--d:27" title="Занято"><span class="day__bar"></span><span class="num">23</span></span>
-          <span class="day day--booked" style="--d:28" title="Занято"><span class="day__bar"></span><span class="num">24</span></span>
-          <span class="day day--booked" style="--d:29" title="Занято"><span class="day__bar"></span><span class="num">25</span></span>
-          <span class="day day--booked" style="--d:30" title="Занято"><span class="day__bar"></span><span class="num">26</span></span>
+          <span class="day day--booked day--g1" style="--d:27" title="Занято"><span class="day__bar"></span><span class="num">23</span></span>
+          <span class="day day--booked day--g1" style="--d:28" title="Занято"><span class="day__bar"></span><span class="num">24</span></span>
+          <span class="day day--booked day--g1" style="--d:29" title="Занято"><span class="day__bar"></span><span class="num">25</span></span>
+          <span class="day day--booked day--g1" style="--d:30" title="Занято"><span class="day__bar"></span><span class="num">26</span></span>
           <button type="button" class="day day--free" style="--d:31" data-day="27" aria-label="27 августа"><span class="day__bar"></span><span class="num">27</span></button>
           <button type="button" class="day day--free" style="--d:32" data-day="28" aria-label="28 августа"><span class="day__bar"></span><span class="num">28</span></button>
           <button type="button" class="day day--free" style="--d:33" data-day="29" aria-label="29 августа"><span class="day__bar"></span><span class="num">29</span></button>
           <button type="button" class="day day--free" style="--d:34" data-day="30" aria-label="30 августа"><span class="day__bar"></span><span class="num">30</span></button>
           <button type="button" class="day day--free" style="--d:35" data-day="31" aria-label="31 августа"><span class="day__bar"></span><span class="num">31</span></button>
         </div>
-        <div class="cal__legend"><span><i class="sw-free"></i>свободно</span><span><i class="sw-booked"></i>занято</span></div>
+        <div class="cal__legend"><span><i class="sw-free"></i>свободно</span><span><i class="swatches"><i class="sw-g1"></i><i class="sw-g2"></i><i class="sw-g3"></i></i>занято</span></div>
       </div>
       <p class="counter" id="dateCounter">Выберите дату заезда</p>
       <div class="actions">
@@ -572,11 +586,11 @@ body[data-tint="1"]{background:var(--tint-final);}
       <h2 class="h1-question">Программа пребывания</h2>
       <div class="options" id="program">
         <label class="option"><input type="checkbox" name="prog" value="кино"><span class="check check--sq"></span>Посмотреть кино</label>
-        <label class="option"><input type="checkbox" name="prog" value="минет"><span class="check check--sq"></span>Минет</label>
         <label class="option"><input type="checkbox" name="prog" value="ВкусВилл"><span class="check check--sq"></span>Сходить во ВкусВилл на скидки</label>
         <label class="option"><input type="checkbox" name="prog" value="массаж Егору"><span class="check check--sq"></span>Массаж Егору</label>
         <label class="option"><input type="checkbox" name="prog" value="секс"><span class="check check--sq"></span>Секс</label>
         <label class="option"><input type="checkbox" name="prog" value="ванна вместе"><span class="check check--sq"></span>Ванна вместе</label>
+        <label class="option"><input type="checkbox" name="prog" value="минет"><span class="check check--sq"></span>Минет</label>
       </div>
       <p class="counter" id="progCounter">Отмечено: 0 · минимум 3</p>
       <div class="actions">
