@@ -3,47 +3,70 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Анкета гостя</title>
-<meta name="description" content="Анкета гостя. Заполняется до прибытия.">
+<title>Забронировать проживание у Егора</title>
+<meta name="description" content="Анкета гостя">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
 <style>
 :root{
   --bg:#FFFFFF;
-  --ink:#0C0D12;
+  --card:#FFFFFF;
+  --ink:#0B0C11;
   --muted:#6A6E7E;
-  --line:#E2E3EA;
-  --line-strong:#C9CBD6;
-  --surface:#F5F6FA;
+  --line:#E4E5EC;
+  --line-strong:#C6C9D5;
+  --grid:rgba(31,69,255,.055);
+
   --blue:#1F45FF;
-  --blue-ink:#FFFFFF;
-  --blue-wash:#EDF0FF;
+  --blue-wash:#EEF1FF;
+  --on-blue:#FFFFFF;
+
+  --field-bg:#1F45FF;
+  --field-ink:#FFFFFF;
+  --field-muted:rgba(255,255,255,.72);
+  --field-line:rgba(255,255,255,.28);
+
   --font:'Golos Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+  --ease:cubic-bezier(.2,.7,.3,1);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0B0C10;
+    --bg:#0A0B0F;
+    --card:#14161F;
     --ink:#ECEDF2;
-    --muted:#8B90A2;
-    --line:#23252E;
-    --line-strong:#3A3D4A;
-    --surface:#14161D;
+    --muted:#888D9E;
+    --line:#212430;
+    --line-strong:#383C4B;
+    --grid:rgba(110,134,255,.06);
+
     --blue:#6E86FF;
-    --blue-ink:#0B0C10;
-    --blue-wash:#161A2E;
+    --blue-wash:#151A31;
+    --on-blue:#07080C;
+
+    --field-bg:#141C41;
+    --field-ink:#EDF0FF;
+    --field-muted:rgba(237,240,255,.66);
+    --field-line:rgba(237,240,255,.22);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0B0C10;
+  --bg:#0A0B0F;
+  --card:#14161F;
   --ink:#ECEDF2;
-  --muted:#8B90A2;
-  --line:#23252E;
-  --line-strong:#3A3D4A;
-  --surface:#14161D;
+  --muted:#888D9E;
+  --line:#212430;
+  --line-strong:#383C4B;
+  --grid:rgba(110,134,255,.06);
+
   --blue:#6E86FF;
-  --blue-ink:#0B0C10;
-  --blue-wash:#161A2E;
+  --blue-wash:#151A31;
+  --on-blue:#07080C;
+
+  --field-bg:#141C41;
+  --field-ink:#EDF0FF;
+  --field-muted:rgba(237,240,255,.66);
+  --field-line:rgba(237,240,255,.22);
 }
 
 *{box-sizing:border-box;}
@@ -56,148 +79,204 @@ body{
   font-size:16px;
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
+  transition:background-color .55s var(--ease), color .55s var(--ease);
+}
+body[data-field="1"]{
+  background:var(--field-bg);
+  color:var(--field-ink);
 }
 
-.progress{
+.texture{
+  position:fixed;
+  inset:0;
+  z-index:0;
+  pointer-events:none;
+  background-image:
+    linear-gradient(var(--grid) 1px, transparent 1px),
+    linear-gradient(90deg, var(--grid) 1px, transparent 1px);
+  background-size:30px 30px;
+  transition:opacity .55s var(--ease);
+}
+body[data-field="1"] .texture{opacity:0;}
+
+.topbar{
   position:fixed;
   top:0; left:0; right:0;
+  z-index:3;
+  padding:calc(env(safe-area-inset-top) + .9rem) 1.25rem .55rem;
+  transition:opacity .4s var(--ease);
+}
+body[data-field="1"] .topbar{opacity:0; pointer-events:none;}
+.topbar__meta{
+  max-width:27rem;
+  margin:0 auto;
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  font-size:.66rem;
+  font-weight:600;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--muted);
+  font-variant-numeric:tabular-nums;
+}
+.segs{
+  max-width:27rem;
+  margin:.55rem auto 0;
+  display:flex;
+  gap:.3rem;
+}
+.seg{
+  position:relative;
+  flex:1;
   height:2px;
   background:var(--line);
-  z-index:10;
+  overflow:hidden;
 }
-.progress__fill{
-  height:100%;
-  width:0%;
+.seg::after{
+  content:"";
+  position:absolute;
+  inset:0;
   background:var(--blue);
-  transition:width .35s cubic-bezier(.4,0,.2,1);
+  transform:scaleX(0);
+  transform-origin:left center;
+  transition:transform .5s var(--ease);
 }
+.seg.is-on::after{transform:scaleX(1);}
 
+.app{position:relative; z-index:1;}
 .wrap{
   min-height:100dvh;
   display:flex;
   flex-direction:column;
-  padding:calc(env(safe-area-inset-top) + 3.5rem) 1.25rem calc(env(safe-area-inset-bottom) + 2.5rem);
+  padding:calc(env(safe-area-inset-top) + 4.5rem) 1.25rem calc(env(safe-area-inset-bottom) + 2.5rem);
 }
-.inner{
-  width:100%;
-  max-width:26rem;
-  margin:auto;
-}
+.inner{width:100%; max-width:27rem; margin:auto;}
 
 .screen{display:none;}
 .screen.is-active{display:block;}
+
 @media (prefers-reduced-motion: no-preference){
-  .screen.is-active{animation:enter .28s cubic-bezier(.2,.7,.3,1) both;}
+  .screen.is-active .anim{
+    animation:rise .42s var(--ease) both;
+    animation-delay:calc(var(--i, 0) * 45ms + 70ms);
+  }
 }
-@keyframes enter{
-  from{opacity:0; transform:translateY(8px);}
+@keyframes rise{
+  from{opacity:0; transform:translateY(14px);}
   to{opacity:1; transform:translateY(0);}
 }
 
 .eyebrow{
-  font-size:.7rem;
+  font-size:.66rem;
   font-weight:600;
-  letter-spacing:.09em;
+  letter-spacing:.11em;
   text-transform:uppercase;
   color:var(--muted);
-  margin:0 0 .6rem;
+  margin:0 0 .7rem;
 }
+body[data-field="1"] .eyebrow{color:var(--field-muted);}
+
 h1{
-  font-size:1.5rem;
+  font-size:1.75rem;
   font-weight:600;
-  line-height:1.25;
-  letter-spacing:-.015em;
+  line-height:1.18;
+  letter-spacing:-.02em;
   margin:0;
   text-wrap:balance;
 }
+.screen[data-step="0"] h1{font-size:2.1rem;}
 .lede{
   color:var(--muted);
   font-size:.95rem;
-  margin:.6rem 0 0;
+  margin:.7rem 0 0;
   max-width:24rem;
 }
-.options{margin:1.6rem 0 0;}
+body[data-field="1"] .lede{color:var(--field-muted);}
 
-.chips{
-  display:grid;
-  grid-template-columns:repeat(auto-fill, minmax(8rem, 1fr));
-  gap:.5rem;
-}
-.chip{
-  display:block;
-  position:relative;
-  border:1px solid var(--line-strong);
-  border-radius:2px;
-  padding:.8rem .75rem;
-  font-size:.95rem;
-  text-align:center;
-  cursor:pointer;
-  transition:border-color .12s, color .12s, background-color .12s;
-  user-select:none;
-}
-.chip input{position:absolute; opacity:0; width:0; height:0;}
-.chip:hover{border-color:var(--ink);}
-.chip:has(input:checked){
-  border-color:var(--blue);
-  background:var(--blue);
-  color:var(--blue-ink);
-}
-.chip:has(input:focus-visible){outline:2px solid var(--blue); outline-offset:2px;}
-
+.options{margin:1.8rem 0 0;}
 .rows{display:flex; flex-direction:column; gap:.5rem;}
+
 .row{
   display:flex;
   align-items:center;
-  gap:.75rem;
+  gap:.8rem;
   position:relative;
   border:1px solid var(--line-strong);
-  border-radius:2px;
-  padding:.9rem 1rem;
+  border-radius:3px;
+  padding:.95rem 1rem;
   cursor:pointer;
-  transition:border-color .12s, background-color .12s;
   user-select:none;
+  background:var(--bg);
+  transition:border-color .18s var(--ease), background-color .18s var(--ease), transform .18s var(--ease);
 }
 .row input{position:absolute; opacity:0; width:0; height:0;}
 .row:hover{border-color:var(--ink);}
-.row__box{
+.row:active{transform:scale(.988);}
+
+.mark{
   flex:0 0 auto;
-  width:1.15rem;
-  height:1.15rem;
+  width:1.2rem;
+  height:1.2rem;
   border:1px solid var(--line-strong);
-  border-radius:1px;
   position:relative;
-  transition:border-color .12s, background-color .12s;
+  transition:border-color .18s var(--ease), background-color .18s var(--ease);
 }
-.row__box::after{
+.mark--box{border-radius:2px;}
+.mark--dot{border-radius:50%;}
+.mark--box::after{
   content:"";
   position:absolute;
-  left:.33rem; top:.14rem;
-  width:.3rem; height:.55rem;
-  border:solid var(--blue-ink);
+  left:.36rem; top:.15rem;
+  width:.3rem; height:.58rem;
+  border:solid var(--on-blue);
   border-width:0 2px 2px 0;
   transform:rotate(45deg) scale(0);
-  transition:transform .12s cubic-bezier(.3,1.4,.5,1);
+  transition:transform .22s cubic-bezier(.3,1.5,.5,1);
 }
-.row__label{font-size:1rem;}
+.mark--dot::after{
+  content:"";
+  position:absolute;
+  inset:.28rem;
+  border-radius:50%;
+  background:var(--on-blue);
+  transform:scale(0);
+  transition:transform .22s cubic-bezier(.3,1.5,.5,1);
+}
+
+.row__label{font-size:1rem; transition:font-weight .18s;}
 .row__sub{color:var(--muted); font-size:.95rem;}
+
 .row:has(input:checked){border-color:var(--blue); background:var(--blue-wash);}
-.row:has(input:checked) .row__box{border-color:var(--blue); background:var(--blue);}
-.row:has(input:checked) .row__box::after{transform:rotate(45deg) scale(1);}
+.row:has(input:checked) .mark{border-color:var(--blue); background:var(--blue);}
+.row:has(input:checked) .mark::after{transform:rotate(45deg) scale(1);}
+.row:has(input:checked) .mark--dot::after{transform:scale(1);}
+.row:has(input:checked) .row__label{font-weight:500;}
 .row:has(input:focus-visible){outline:2px solid var(--blue); outline-offset:2px;}
+
+@media (prefers-reduced-motion: no-preference){
+  .row.is-picked{animation:picked .34s var(--ease);}
+}
+@keyframes picked{
+  0%{transform:scale(1);}
+  35%{transform:scale(.975);}
+  100%{transform:scale(1);}
+}
 
 .counter{
   font-size:.85rem;
   color:var(--muted);
-  margin:.9rem 0 0;
+  margin:1rem 0 0;
   font-variant-numeric:tabular-nums;
+  transition:color .2s;
 }
-.counter.is-ok{color:var(--blue);}
+.counter.is-ok{color:var(--blue); font-weight:500;}
 
 .actions{
-  margin:1.6rem 0 0;
+  margin:1.8rem 0 0;
   display:flex;
   flex-direction:column;
-  gap:.9rem;
+  gap:1rem;
   align-items:flex-start;
 }
 .btn{
@@ -206,14 +285,15 @@ h1{
   font-weight:500;
   border:1px solid var(--blue);
   background:var(--blue);
-  color:var(--blue-ink);
-  border-radius:2px;
-  padding:.85rem 1.6rem;
+  color:var(--on-blue);
+  border-radius:3px;
+  padding:.95rem 1.6rem;
   cursor:pointer;
   width:100%;
-  transition:opacity .12s;
+  transition:opacity .18s, transform .12s var(--ease), background-color .2s, border-color .2s, color .2s;
 }
-.btn:hover{opacity:.88;}
+.btn:hover{opacity:.9;}
+.btn:active{transform:translateY(1px);}
 .btn:focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
 .btn[disabled]{
   border-color:var(--line);
@@ -221,7 +301,15 @@ h1{
   color:var(--muted);
   cursor:not-allowed;
   opacity:1;
+  transform:none;
 }
+.btn--invert{
+  background:var(--field-ink);
+  border-color:var(--field-ink);
+  color:var(--field-bg);
+}
+.btn--invert:focus-visible{outline-color:var(--field-ink);}
+
 .btn-back{
   font-family:inherit;
   font-size:.85rem;
@@ -232,179 +320,198 @@ h1{
   cursor:pointer;
   text-decoration:underline;
   text-underline-offset:3px;
+  transition:color .18s;
 }
 .btn-back:hover{color:var(--ink);}
 .btn-back:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
 
-.summary{
-  margin:1.6rem 0 0;
-  border-top:1px solid var(--line);
+.card{
+  margin:1.8rem 0 0;
+  background:var(--card);
+  color:var(--ink);
+  border-radius:3px;
+  padding:.25rem 1.15rem;
+  box-shadow:0 18px 40px -26px rgba(0,0,0,.55);
 }
-.summary__item{
+.card__item{
   display:flex;
   flex-direction:column;
-  gap:.2rem;
-  padding:.9rem 0;
+  gap:.25rem;
+  padding:.95rem 0;
   border-bottom:1px solid var(--line);
 }
-.summary__key{
-  font-size:.7rem;
+.card__item:last-child{border-bottom:none;}
+.card__key{
+  font-size:.66rem;
   font-weight:600;
-  letter-spacing:.09em;
+  letter-spacing:.11em;
   text-transform:uppercase;
   color:var(--muted);
 }
-.summary__val{font-size:1rem;}
+.card__val{font-size:1.02rem;}
+
 .footnote{
-  margin:1.4rem 0 0;
+  margin:1.5rem 0 0;
   font-size:.85rem;
-  color:var(--muted);
+  color:var(--field-muted);
 }
 </style>
 </head>
-<body>
+<body data-field="1">
 
-<div class="progress"><div class="progress__fill" id="progressFill"></div></div>
+<div class="texture" aria-hidden="true"></div>
 
+<header class="topbar" id="topbar">
+  <div class="topbar__meta">
+    <span>Форма 1-ЛП</span>
+    <span>28.08 — 30.08</span>
+  </div>
+  <div class="segs">
+    <div class="seg" data-seg="1"></div>
+    <div class="seg" data-seg="2"></div>
+    <div class="seg" data-seg="3"></div>
+  </div>
+</header>
+
+<div class="app">
 <div class="wrap">
   <div class="inner">
 
     <section class="screen is-active" data-step="0">
-      <p class="eyebrow">Форма 1-ЛП</p>
-      <h1>Анкета гостя</h1>
-      <p class="lede">Заполняется до прибытия. Три вопроса, все поля обязательны.</p>
-      <div class="actions">
-        <button class="btn" type="button" data-go="1">Начать</button>
+      <p class="eyebrow anim" style="--i:0">Форма 1-ЛП</p>
+      <h1 class="anim" style="--i:1">Анкета гостя-девушки</h1>
+      <p class="lede anim" style="--i:2">Заполняется до прибытия. Три вопроса, все поля обязательны.</p>
+      <div class="actions anim" style="--i:3">
+        <button class="btn btn--invert" type="button" data-go="1">Начать</button>
       </div>
     </section>
 
     <section class="screen" data-step="1">
-      <p class="eyebrow">Вопрос 1 из 3</p>
-      <h1>Укажите имя</h1>
-      <p class="lede">Выберите один вариант.</p>
+      <p class="eyebrow anim" style="--i:0">Вопрос 1 из 3</p>
+      <h1 class="anim" style="--i:1">Укажите имя</h1>
+      <p class="lede anim" style="--i:2">Выберите один вариант.</p>
       <div class="options">
-        <div class="chips" id="names">
-          <label class="chip"><input type="radio" name="name" value="Виктория">Виктория</label>
-          <label class="chip"><input type="radio" name="name" value="Алла">Алла</label>
-          <label class="chip"><input type="radio" name="name" value="Юлия">Юлия</label>
-          <label class="chip"><input type="radio" name="name" value="Стелла">Стелла</label>
-          <label class="chip"><input type="radio" name="name" value="Марина">Марина</label>
-          <label class="chip"><input type="radio" name="name" value="Элля">Элля</label>
-          <label class="chip"><input type="radio" name="name" value="Кристина">Кристина</label>
-          <label class="chip"><input type="radio" name="name" value="Оксана">Оксана</label>
-          <label class="chip"><input type="radio" name="name" value="Белла">Белла</label>
-          <label class="chip"><input type="radio" name="name" value="Анна">Анна</label>
-          <label class="chip"><input type="radio" name="name" value="Лена (худая)">Лена (худая)</label>
-          <label class="chip"><input type="radio" name="name" value="Лена (пышная)">Лена (пышная)</label>
+        <div class="rows" id="names">
+          <label class="row anim" style="--i:3"><input type="radio" name="name" value="Виктория"><span class="mark mark--dot"></span><span class="row__label">Виктория</span></label>
+          <label class="row anim" style="--i:4"><input type="radio" name="name" value="Юля"><span class="mark mark--dot"></span><span class="row__label">Юля</span></label>
+          <label class="row anim" style="--i:5"><input type="radio" name="name" value="Марина"><span class="mark mark--dot"></span><span class="row__label">Марина</span></label>
+          <label class="row anim" style="--i:6"><input type="radio" name="name" value="Элля"><span class="mark mark--dot"></span><span class="row__label">Элля</span></label>
+          <label class="row anim" style="--i:7"><input type="radio" name="name" value="Кристина"><span class="mark mark--dot"></span><span class="row__label">Кристина</span></label>
+          <label class="row anim" style="--i:8"><input type="radio" name="name" value="Лена (та которая худая)"><span class="mark mark--dot"></span><span class="row__label">Лена (та которая худая)</span></label>
+          <label class="row anim" style="--i:9"><input type="radio" name="name" value="Лена (та которая пышная)"><span class="mark mark--dot"></span><span class="row__label">Лена (та которая пышная)</span></label>
         </div>
       </div>
-      <div class="actions">
+      <div class="actions anim" style="--i:10">
         <button class="btn-back" type="button" data-go="0">Назад</button>
       </div>
     </section>
 
     <section class="screen" data-step="2">
-      <p class="eyebrow">Вопрос 2 из 3</p>
-      <h1>Даты пребывания</h1>
-      <p class="lede">Отметьте один или несколько дней.</p>
+      <p class="eyebrow anim" style="--i:0">Вопрос 2 из 3</p>
+      <h1 class="anim" style="--i:1">Даты пребывания</h1>
+      <p class="lede anim" style="--i:2">Отметьте один или несколько дней.</p>
       <div class="options">
         <div class="rows" id="dates">
-          <label class="row"><input type="checkbox" name="date" value="28 августа"><span class="row__box"></span><span class="row__label">28 августа <span class="row__sub">пятница</span></span></label>
-          <label class="row"><input type="checkbox" name="date" value="29 августа"><span class="row__box"></span><span class="row__label">29 августа <span class="row__sub">суббота</span></span></label>
-          <label class="row"><input type="checkbox" name="date" value="30 августа"><span class="row__box"></span><span class="row__label">30 августа <span class="row__sub">воскресенье</span></span></label>
+          <label class="row anim" style="--i:3"><input type="checkbox" name="date" value="28 августа"><span class="mark mark--box"></span><span class="row__label">28 августа <span class="row__sub">пятница</span></span></label>
+          <label class="row anim" style="--i:4"><input type="checkbox" name="date" value="29 августа"><span class="mark mark--box"></span><span class="row__label">29 августа <span class="row__sub">суббота</span></span></label>
+          <label class="row anim" style="--i:5"><input type="checkbox" name="date" value="30 августа"><span class="mark mark--box"></span><span class="row__label">30 августа <span class="row__sub">воскресенье</span></span></label>
         </div>
       </div>
-      <div class="actions">
+      <div class="actions anim" style="--i:6">
         <button class="btn" type="button" id="datesNext" disabled>Далее</button>
         <button class="btn-back" type="button" data-go="1">Назад</button>
       </div>
     </section>
 
     <section class="screen" data-step="3">
-      <p class="eyebrow">Вопрос 3 из 3</p>
-      <h1>Программа пребывания</h1>
-      <p class="lede">Отметьте не менее 3 пунктов.</p>
+      <p class="eyebrow anim" style="--i:0">Вопрос 3 из 3</p>
+      <h1 class="anim" style="--i:1">Программа пребывания</h1>
+      <p class="lede anim" style="--i:2">Отметьте не менее 3 пунктов.</p>
       <div class="options">
         <div class="rows" id="program">
-          <label class="row"><input type="checkbox" name="prog" value="кино"><span class="row__box"></span><span class="row__label">Посмотреть кино</span></label>
-          <label class="row"><input type="checkbox" name="prog" value="минет"><span class="row__box"></span><span class="row__label">Минет</span></label>
-          <label class="row"><input type="checkbox" name="prog" value="ВкусВилл"><span class="row__box"></span><span class="row__label">Сходить во ВкусВилл</span></label>
-          <label class="row"><input type="checkbox" name="prog" value="массаж"><span class="row__box"></span><span class="row__label">Массаж</span></label>
-          <label class="row"><input type="checkbox" name="prog" value="секс"><span class="row__box"></span><span class="row__label">Секс</span></label>
-          <label class="row"><input type="checkbox" name="prog" value="ванна вместе"><span class="row__box"></span><span class="row__label">Ванна вместе</span></label>
+          <label class="row anim" style="--i:3"><input type="checkbox" name="prog" value="кино"><span class="mark mark--box"></span><span class="row__label">Посмотреть кино</span></label>
+          <label class="row anim" style="--i:4"><input type="checkbox" name="prog" value="минет"><span class="mark mark--box"></span><span class="row__label">Минет</span></label>
+          <label class="row anim" style="--i:5"><input type="checkbox" name="prog" value="ВкусВилл"><span class="mark mark--box"></span><span class="row__label">Сходить во ВкусВилл на скидки</span></label>
+          <label class="row anim" style="--i:6"><input type="checkbox" name="prog" value="массаж"><span class="mark mark--box"></span><span class="row__label">Массаж</span></label>
+          <label class="row anim" style="--i:7"><input type="checkbox" name="prog" value="секс"><span class="mark mark--box"></span><span class="row__label">Секс</span></label>
+          <label class="row anim" style="--i:8"><input type="checkbox" name="prog" value="ванна вместе"><span class="mark mark--box"></span><span class="row__label">Ванна вместе</span></label>
         </div>
-        <p class="counter" id="progCounter">Отмечено: 0 · минимум 3</p>
+        <p class="counter anim" id="progCounter" style="--i:9">Отмечено: 0 · минимум 3</p>
       </div>
-      <div class="actions">
+      <div class="actions anim" style="--i:10">
         <button class="btn" type="button" id="progNext" disabled>Отправить</button>
         <button class="btn-back" type="button" data-go="2">Назад</button>
       </div>
     </section>
 
     <section class="screen" data-step="4">
-      <p class="eyebrow">Готово</p>
-      <h1>Анкета принята</h1>
-      <p class="lede">Данные зафиксированы.</p>
-      <div class="summary">
-        <div class="summary__item">
-          <span class="summary__key">Имя</span>
-          <span class="summary__val" id="sumName">—</span>
+      <p class="eyebrow anim" style="--i:0">Готово</p>
+      <h1 class="anim" style="--i:1">Анкета принята</h1>
+      <p class="lede anim" style="--i:2">Данные зафиксированы.</p>
+      <div class="card anim" style="--i:3">
+        <div class="card__item">
+          <span class="card__key">Имя</span>
+          <span class="card__val" id="sumName">—</span>
         </div>
-        <div class="summary__item">
-          <span class="summary__key">Даты пребывания</span>
-          <span class="summary__val" id="sumDates">—</span>
+        <div class="card__item">
+          <span class="card__key">Даты пребывания</span>
+          <span class="card__val" id="sumDates">—</span>
         </div>
-        <div class="summary__item">
-          <span class="summary__key">Программа</span>
-          <span class="summary__val" id="sumProg">—</span>
+        <div class="card__item">
+          <span class="card__key">Программа</span>
+          <span class="card__val" id="sumProg">—</span>
         </div>
       </div>
-      <p class="footnote">Изменения не принимаются.</p>
+      <p class="footnote anim" style="--i:4">Изменения не принимаются.</p>
     </section>
 
   </div>
+</div>
 </div>
 
 <script>
 (function(){
   var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
-  var fill = document.getElementById('progressFill');
-  var TOTAL = 3;
+  var segs = Array.prototype.slice.call(document.querySelectorAll('.seg'));
+  var FIELD_STEPS = [0, 4];
 
   function show(step){
     screens.forEach(function(s){
       s.classList.toggle('is-active', Number(s.dataset.step) === step);
     });
-    var pct = step === 0 ? 0 : Math.min(step, TOTAL) / TOTAL * 100;
-    fill.style.width = pct + '%';
+    segs.forEach(function(seg){
+      seg.classList.toggle('is-on', step >= Number(seg.dataset.seg));
+    });
+    document.body.dataset.field = FIELD_STEPS.indexOf(step) !== -1 ? '1' : '0';
     window.scrollTo(0, 0);
   }
 
   document.querySelectorAll('[data-go]').forEach(function(btn){
-    btn.addEventListener('click', function(){
-      show(Number(btn.dataset.go));
-    });
+    btn.addEventListener('click', function(){ show(Number(btn.dataset.go)); });
   });
 
   document.querySelectorAll('#names input').forEach(function(input){
     input.addEventListener('change', function(){
-      setTimeout(function(){ show(2); }, 240);
+      var row = input.closest('.row');
+      row.classList.add('is-picked');
+      setTimeout(function(){
+        row.classList.remove('is-picked');
+        show(2);
+      }, 380);
     });
   });
 
-  var dateInputs = document.querySelectorAll('#dates input');
   var datesNext = document.getElementById('datesNext');
-  dateInputs.forEach(function(input){
+  document.querySelectorAll('#dates input').forEach(function(input){
     input.addEventListener('change', function(){
       datesNext.disabled = document.querySelectorAll('#dates input:checked').length === 0;
     });
   });
   datesNext.addEventListener('click', function(){ show(3); });
 
-  var progInputs = document.querySelectorAll('#program input');
   var progNext = document.getElementById('progNext');
   var progCounter = document.getElementById('progCounter');
-  progInputs.forEach(function(input){
+  document.querySelectorAll('#program input').forEach(function(input){
     input.addEventListener('change', function(){
       var n = document.querySelectorAll('#program input:checked').length;
       progCounter.textContent = n >= 3 ? 'Отмечено: ' + n : 'Отмечено: ' + n + ' · минимум 3';
