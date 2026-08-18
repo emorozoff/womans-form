@@ -10,63 +10,60 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
 <style>
 :root{
-  --bg:#FFFFFF;
+  --bg:#FFF9FB;
   --card:#FFFFFF;
-  --ink:#0B0C11;
-  --muted:#6A6E7E;
-  --line:#E4E5EC;
-  --line-strong:#C6C9D5;
-  --grid:rgba(31,69,255,.055);
+  --ink:#1A0E14;
+  --muted:#7E6B73;
+  --line:#F0DDE5;
+  --line-strong:#DCBCCB;
+  --grid:rgba(216,27,96,.05);
 
-  --blue:#1F45FF;
-  --blue-wash:#EEF1FF;
-  --on-blue:#FFFFFF;
+  --accent:#D81B60;
+  --accent-wash:#FFEDF3;
+  --on-accent:#FFFFFF;
 
-  --field-bg:#1F45FF;
+  --field-bg:#D81B60;
   --field-ink:#FFFFFF;
-  --field-muted:rgba(255,255,255,.72);
-  --field-line:rgba(255,255,255,.28);
+  --field-muted:rgba(255,255,255,.78);
 
   --font:'Golos Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   --ease:cubic-bezier(.2,.7,.3,1);
 }
 @media (prefers-color-scheme: dark){
   :root:not([data-theme="light"]){
-    --bg:#0A0B0F;
-    --card:#14161F;
-    --ink:#ECEDF2;
-    --muted:#888D9E;
-    --line:#212430;
-    --line-strong:#383C4B;
-    --grid:rgba(110,134,255,.06);
+    --bg:#100A0D;
+    --card:#1B1116;
+    --ink:#F5E9EE;
+    --muted:#A08792;
+    --line:#2A1C22;
+    --line-strong:#452F39;
+    --grid:rgba(255,138,180,.06);
 
-    --blue:#6E86FF;
-    --blue-wash:#151A31;
-    --on-blue:#07080C;
+    --accent:#FF7FB0;
+    --accent-wash:#2A1119;
+    --on-accent:#1A0910;
 
-    --field-bg:#141C41;
-    --field-ink:#EDF0FF;
-    --field-muted:rgba(237,240,255,.66);
-    --field-line:rgba(237,240,255,.22);
+    --field-bg:#42132A;
+    --field-ink:#FFE9F1;
+    --field-muted:rgba(255,233,241,.68);
   }
 }
 :root[data-theme="dark"]{
-  --bg:#0A0B0F;
-  --card:#14161F;
-  --ink:#ECEDF2;
-  --muted:#888D9E;
-  --line:#212430;
-  --line-strong:#383C4B;
-  --grid:rgba(110,134,255,.06);
+  --bg:#100A0D;
+  --card:#1B1116;
+  --ink:#F5E9EE;
+  --muted:#A08792;
+  --line:#2A1C22;
+  --line-strong:#452F39;
+  --grid:rgba(255,138,180,.06);
 
-  --blue:#6E86FF;
-  --blue-wash:#151A31;
-  --on-blue:#07080C;
+  --accent:#FF7FB0;
+  --accent-wash:#2A1119;
+  --on-accent:#1A0910;
 
-  --field-bg:#141C41;
-  --field-ink:#EDF0FF;
-  --field-muted:rgba(237,240,255,.66);
-  --field-line:rgba(237,240,255,.22);
+  --field-bg:#42132A;
+  --field-ink:#FFE9F1;
+  --field-muted:rgba(255,233,241,.68);
 }
 
 *{box-sizing:border-box;}
@@ -79,6 +76,8 @@ body{
   font-size:16px;
   line-height:1.5;
   -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+  overflow-x:clip;
   transition:background-color .55s var(--ease), color .55s var(--ease);
 }
 body[data-field="1"]{
@@ -137,7 +136,7 @@ body[data-field="1"] .topbar{opacity:0; pointer-events:none;}
   content:"";
   position:absolute;
   inset:0;
-  background:var(--blue);
+  background:var(--accent);
   transform:scaleX(0);
   transform-origin:left center;
   transition:transform .5s var(--ease);
@@ -229,7 +228,7 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   position:absolute;
   left:.36rem; top:.15rem;
   width:.3rem; height:.58rem;
-  border:solid var(--on-blue);
+  border:solid var(--on-accent);
   border-width:0 2px 2px 0;
   transform:rotate(45deg) scale(0);
   transition:transform .22s cubic-bezier(.3,1.5,.5,1);
@@ -239,7 +238,7 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   position:absolute;
   inset:.28rem;
   border-radius:50%;
-  background:var(--on-blue);
+  background:var(--on-accent);
   transform:scale(0);
   transition:transform .22s cubic-bezier(.3,1.5,.5,1);
 }
@@ -247,12 +246,12 @@ body[data-field="1"] .lede{color:var(--field-muted);}
 .row__label{font-size:1rem; transition:font-weight .18s;}
 .row__sub{color:var(--muted); font-size:.95rem;}
 
-.row:has(input:checked){border-color:var(--blue); background:var(--blue-wash);}
-.row:has(input:checked) .mark{border-color:var(--blue); background:var(--blue);}
+.row:has(input:checked){border-color:var(--accent); background:var(--accent-wash);}
+.row:has(input:checked) .mark{border-color:var(--accent); background:var(--accent);}
 .row:has(input:checked) .mark::after{transform:rotate(45deg) scale(1);}
 .row:has(input:checked) .mark--dot::after{transform:scale(1);}
 .row:has(input:checked) .row__label{font-weight:500;}
-.row:has(input:focus-visible){outline:2px solid var(--blue); outline-offset:2px;}
+.row:has(input:focus-visible){outline:2px solid var(--accent); outline-offset:2px;}
 
 @media (prefers-reduced-motion: no-preference){
   .row.is-picked{animation:picked .34s var(--ease);}
@@ -263,6 +262,96 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   100%{transform:scale(1);}
 }
 
+/* календарь */
+.cal{
+  border:1px solid var(--line);
+  border-radius:4px;
+  background:var(--card);
+  padding:1rem .85rem .9rem;
+}
+.cal__month{
+  font-size:.8rem;
+  font-weight:600;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  text-align:center;
+  margin:0 0 .9rem;
+}
+.cal__dows,
+.cal__grid{
+  display:grid;
+  grid-template-columns:repeat(7, 1fr);
+  gap:.25rem;
+}
+.cal__dows{margin-bottom:.35rem;}
+.cal__dows span{
+  text-align:center;
+  font-size:.66rem;
+  font-weight:600;
+  letter-spacing:.06em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.day{
+  position:relative;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  aspect-ratio:1;
+  border-radius:3px;
+  font-size:.95rem;
+  font-variant-numeric:tabular-nums;
+  border:1px solid transparent;
+}
+.day--off{color:var(--muted); opacity:.45;}
+.day--free{
+  cursor:pointer;
+  user-select:none;
+  border-color:var(--accent);
+  color:var(--accent);
+  font-weight:500;
+  transition:background-color .18s var(--ease), color .18s var(--ease), transform .16s var(--ease);
+}
+.day--free input{position:absolute; opacity:0; width:0; height:0;}
+.day--free:hover{background:var(--accent-wash);}
+.day--free:active{transform:scale(.92);}
+.day--free:has(input:checked){
+  background:var(--accent);
+  color:var(--on-accent);
+  font-weight:600;
+}
+.day--free:has(input:focus-visible){outline:2px solid var(--accent); outline-offset:2px;}
+@media (prefers-reduced-motion: no-preference){
+  .screen.is-active .day{
+    animation:cell .3s var(--ease) both;
+    animation-delay:calc(var(--d, 0) * 11ms + 230ms);
+  }
+  .screen.is-active .day--free::before{
+    content:"";
+    position:absolute;
+    inset:-1px;
+    border-radius:3px;
+    box-shadow:0 0 0 0 var(--accent);
+    animation:ring 1.5s var(--ease) .8s 2 both;
+    pointer-events:none;
+  }
+}
+@keyframes cell{
+  from{opacity:0; transform:scale(.86);}
+  to{opacity:1; transform:scale(1);}
+}
+@keyframes ring{
+  0%{opacity:.45; box-shadow:0 0 0 0 var(--accent);}
+  65%{opacity:0; box-shadow:0 0 0 8px var(--accent);}
+  100%{opacity:0; box-shadow:0 0 0 8px var(--accent);}
+}
+.cal__note{
+  margin:.9rem 0 0;
+  font-size:.8rem;
+  color:var(--muted);
+  text-align:center;
+}
+
 .counter{
   font-size:.85rem;
   color:var(--muted);
@@ -270,7 +359,7 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   font-variant-numeric:tabular-nums;
   transition:color .2s;
 }
-.counter.is-ok{color:var(--blue); font-weight:500;}
+.counter.is-ok{color:var(--accent); font-weight:500;}
 
 .actions{
   margin:1.8rem 0 0;
@@ -283,9 +372,9 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   font-family:inherit;
   font-size:.95rem;
   font-weight:500;
-  border:1px solid var(--blue);
-  background:var(--blue);
-  color:var(--on-blue);
+  border:1px solid var(--accent);
+  background:var(--accent);
+  color:var(--on-accent);
   border-radius:3px;
   padding:.95rem 1.6rem;
   cursor:pointer;
@@ -294,7 +383,7 @@ body[data-field="1"] .lede{color:var(--field-muted);}
 }
 .btn:hover{opacity:.9;}
 .btn:active{transform:translateY(1px);}
-.btn:focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
+.btn:focus-visible{outline:2px solid var(--accent); outline-offset:3px;}
 .btn[disabled]{
   border-color:var(--line);
   background:var(--line);
@@ -323,7 +412,7 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   transition:color .18s;
 }
 .btn-back:hover{color:var(--ink);}
-.btn-back:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+.btn-back:focus-visible{outline:2px solid var(--accent); outline-offset:2px;}
 
 .card{
   margin:1.8rem 0 0;
@@ -331,7 +420,7 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   color:var(--ink);
   border-radius:3px;
   padding:.25rem 1.15rem;
-  box-shadow:0 18px 40px -26px rgba(0,0,0,.55);
+  box-shadow:0 18px 40px -26px rgba(0,0,0,.5);
 }
 .card__item{
   display:flex;
@@ -349,6 +438,78 @@ body[data-field="1"] .lede{color:var(--field-muted);}
   color:var(--muted);
 }
 .card__val{font-size:1.02rem;}
+
+/* подпись */
+.sign{
+  border-top:1px solid var(--line);
+  padding:1.05rem 0 1.15rem;
+}
+.sign__text{
+  margin:0 0 1.15rem;
+  font-size:.82rem;
+  line-height:1.55;
+  color:var(--muted);
+}
+.sign__grid{
+  display:flex;
+  gap:1.1rem;
+  align-items:flex-end;
+}
+.sign__field{flex:1 1 0; min-width:0;}
+.sign__field--date{flex:0 0 6.2rem;}
+.sign__line{
+  display:block;
+  border-bottom:1px solid var(--line-strong);
+  padding:0 .1rem .3rem;
+  font-size:.95rem;
+  font-weight:500;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+  min-height:1.6rem;
+}
+.sign__cap{
+  display:block;
+  margin-top:.35rem;
+  font-size:.62rem;
+  font-weight:600;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.sign__foot{
+  display:flex;
+  justify-content:space-between;
+  align-items:flex-end;
+  gap:.9rem;
+  margin-top:1.35rem;
+}
+.sign__meta{
+  margin:0;
+  font-size:.68rem;
+  line-height:1.55;
+  color:var(--muted);
+  max-width:11.5rem;
+}
+.stamp{
+  flex:0 0 auto;
+  border:2px solid var(--accent);
+  border-radius:3px;
+  color:var(--accent);
+  padding:.42rem .62rem;
+  text-align:center;
+  transform:rotate(-5deg);
+  text-transform:uppercase;
+  line-height:1.3;
+}
+.stamp b{display:block; font-size:.78rem; font-weight:700; letter-spacing:.09em;}
+.stamp span{display:block; font-size:.58rem; font-weight:600; letter-spacing:.06em;}
+@media (prefers-reduced-motion: no-preference){
+  .screen.is-active .stamp{animation:slam .42s cubic-bezier(.25,1.3,.4,1) .8s both;}
+}
+@keyframes slam{
+  from{opacity:0; transform:rotate(-5deg) scale(1.7);}
+  to{opacity:1; transform:rotate(-5deg) scale(1);}
+}
 
 .footnote{
   margin:1.5rem 0 0;
@@ -411,13 +572,53 @@ body[data-field="1"] .lede{color:var(--field-muted);}
       <h1 class="anim" style="--i:1">Даты пребывания</h1>
       <p class="lede anim" style="--i:2">Отметьте один или несколько дней.</p>
       <div class="options">
-        <div class="rows" id="dates">
-          <label class="row anim" style="--i:3"><input type="checkbox" name="date" value="28 августа"><span class="mark mark--box"></span><span class="row__label">28 августа <span class="row__sub">пятница</span></span></label>
-          <label class="row anim" style="--i:4"><input type="checkbox" name="date" value="29 августа"><span class="mark mark--box"></span><span class="row__label">29 августа <span class="row__sub">суббота</span></span></label>
-          <label class="row anim" style="--i:5"><input type="checkbox" name="date" value="30 августа"><span class="mark mark--box"></span><span class="row__label">30 августа <span class="row__sub">воскресенье</span></span></label>
+        <div class="cal anim" style="--i:3">
+          <p class="cal__month">Август 2026</p>
+          <div class="cal__dows" aria-hidden="true">
+            <span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>вс</span>
+          </div>
+          <div class="cal__grid" id="dates">
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--off" style="--d:5">1</span>
+            <span class="day day--off" style="--d:6">2</span>
+            <span class="day day--off" style="--d:7">3</span>
+            <span class="day day--off" style="--d:8">4</span>
+            <span class="day day--off" style="--d:9">5</span>
+            <span class="day day--off" style="--d:10">6</span>
+            <span class="day day--off" style="--d:11">7</span>
+            <span class="day day--off" style="--d:12">8</span>
+            <span class="day day--off" style="--d:13">9</span>
+            <span class="day day--off" style="--d:14">10</span>
+            <span class="day day--off" style="--d:15">11</span>
+            <span class="day day--off" style="--d:16">12</span>
+            <span class="day day--off" style="--d:17">13</span>
+            <span class="day day--off" style="--d:18">14</span>
+            <span class="day day--off" style="--d:19">15</span>
+            <span class="day day--off" style="--d:20">16</span>
+            <span class="day day--off" style="--d:21">17</span>
+            <span class="day day--off" style="--d:22">18</span>
+            <span class="day day--off" style="--d:23">19</span>
+            <span class="day day--off" style="--d:24">20</span>
+            <span class="day day--off" style="--d:25">21</span>
+            <span class="day day--off" style="--d:26">22</span>
+            <span class="day day--off" style="--d:27">23</span>
+            <span class="day day--off" style="--d:28">24</span>
+            <span class="day day--off" style="--d:29">25</span>
+            <span class="day day--off" style="--d:30">26</span>
+            <span class="day day--off" style="--d:31">27</span>
+            <label class="day day--free" style="--d:32"><input type="checkbox" name="date" value="28 августа">28</label>
+            <label class="day day--free" style="--d:33"><input type="checkbox" name="date" value="29 августа">29</label>
+            <label class="day day--free" style="--d:34"><input type="checkbox" name="date" value="30 августа">30</label>
+            <span class="day day--off" style="--d:35">31</span>
+          </div>
+          <p class="cal__note">Свободны только 28, 29 и 30 августа</p>
         </div>
       </div>
-      <div class="actions anim" style="--i:6">
+      <div class="actions anim" style="--i:4">
         <button class="btn" type="button" id="datesNext" disabled>Далее</button>
         <button class="btn-back" type="button" data-go="1">Назад</button>
       </div>
@@ -460,6 +661,23 @@ body[data-field="1"] .lede{color:var(--field-muted);}
         <div class="card__item">
           <span class="card__key">Программа</span>
           <span class="card__val" id="sumProg">—</span>
+        </div>
+        <div class="sign">
+          <p class="sign__text">Настоящим подтверждаю, что сведения, указанные в анкете, являются полными и достоверными, а отмеченная программа согласована мною добровольно и в здравом уме.</p>
+          <div class="sign__grid">
+            <div class="sign__field">
+              <span class="sign__line" id="sigName">—</span>
+              <span class="sign__cap">Подпись</span>
+            </div>
+            <div class="sign__field sign__field--date">
+              <span class="sign__line" id="sigDate">—</span>
+              <span class="sign__cap">Дата</span>
+            </div>
+          </div>
+          <div class="sign__foot">
+            <p class="sign__meta">Документ № 28/08-26. Подписан электронно, имеет юридическую силу.</p>
+            <div class="stamp"><b>Принято</b><span id="stampDate">—</span></div>
+          </div>
         </div>
       </div>
       <p class="footnote anim" style="--i:4">Изменения не принимаются.</p>
@@ -525,9 +743,17 @@ body[data-field="1"] .lede{color:var(--field-muted);}
     var dates = Array.prototype.map.call(document.querySelectorAll('#dates input:checked'), function(i){ return i.value; });
     var prog = Array.prototype.map.call(document.querySelectorAll('#program input:checked'), function(i){ return i.value; });
 
+    var now = new Date();
+    var stamp = String(now.getDate()).padStart(2, '0') + '.' +
+                String(now.getMonth() + 1).padStart(2, '0') + '.' +
+                now.getFullYear();
+
     document.getElementById('sumName').textContent = name ? name.value : '—';
     document.getElementById('sumDates').textContent = dates.join(', ');
     document.getElementById('sumProg').textContent = prog.join(', ');
+    document.getElementById('sigName').textContent = name ? name.value : '—';
+    document.getElementById('sigDate').textContent = stamp;
+    document.getElementById('stampDate').textContent = stamp;
     show(4);
   });
 })();
