@@ -10,6 +10,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
+  color-scheme:light;
   --accent:#b5654a;
   --ink:#332c27;
   --ink-10:rgba(43,38,34,.06);
@@ -21,37 +22,12 @@
   --bg-screen:#fbf9f5;
   --tint-final:#f8ede6;
   --white:#ffffff;
+  --booked:#6f93b5;
+  --booked-wash:#e9f0f6;
+  --booked-line:#cddded;
   --serif:'Cormorant Garamond', Georgia, 'Times New Roman', serif;
   --sans:'Manrope', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
   --ease:cubic-bezier(.2,.7,.3,1);
-}
-@media (prefers-color-scheme: dark){
-  :root:not([data-theme="light"]){
-    --accent:#d98a68;
-    --ink:#f2ece5;
-    --ink-10:rgba(242,236,229,.1);
-    --ink-14:rgba(242,236,229,.13);
-    --ink-45:rgba(242,236,229,.48);
-    --ink-50:rgba(242,236,229,.53);
-    --ink-60:rgba(242,236,229,.63);
-    --ink-70:rgba(242,236,229,.73);
-    --bg-screen:#211c19;
-    --tint-final:#33241d;
-    --white:#2b2521;
-  }
-}
-:root[data-theme="dark"]{
-  --accent:#d98a68;
-  --ink:#f2ece5;
-  --ink-10:rgba(242,236,229,.1);
-  --ink-14:rgba(242,236,229,.13);
-  --ink-45:rgba(242,236,229,.48);
-  --ink-50:rgba(242,236,229,.53);
-  --ink-60:rgba(242,236,229,.63);
-  --ink-70:rgba(242,236,229,.73);
-  --bg-screen:#211c19;
-  --tint-final:#33241d;
-  --white:#2b2521;
 }
 
 *{box-sizing:border-box;}
@@ -277,6 +253,13 @@ body[data-tint="1"]{background:var(--tint-final);}
   color:var(--ink-45);
   opacity:.45;
 }
+.day--booked{
+  background:var(--booked-wash);
+  border-color:var(--booked-line);
+  color:var(--booked);
+  font-weight:500;
+  opacity:1;
+}
 .day--free{
   cursor:pointer;
   user-select:none;
@@ -307,7 +290,22 @@ body[data-tint="1"]{background:var(--tint-final);}
   65%{opacity:0; box-shadow:0 0 0 7px var(--accent);}
   100%{opacity:0; box-shadow:0 0 0 7px var(--accent);}
 }
-.cal__note{margin:.9rem 0 0; font-size:.78rem; color:var(--ink-45); text-align:center;}
+.cal__legend{
+  display:flex;
+  justify-content:center;
+  gap:1.1rem;
+  margin:1rem 0 0;
+  font-size:.72rem;
+  color:var(--ink-45);
+}
+.cal__legend span{display:flex; align-items:center; gap:.4rem;}
+.cal__legend i{
+  width:.62rem; height:.62rem;
+  border-radius:3px;
+  display:block;
+}
+.cal__legend .sw-free{border:1px solid var(--accent); background:transparent;}
+.cal__legend .sw-booked{background:var(--booked-wash); border:1px solid var(--booked-line);}
 
 .counter{
   font-size:.82rem;
@@ -459,9 +457,7 @@ body[data-tint="1"]{background:var(--tint-final);}
       <div class="eyebrow">Вопрос 1 из 3</div>
       <h2 class="h1-question">Укажите имя</h2>
       <div class="options" id="names">
-        <label class="option"><input type="radio" name="name" value="Виктория"><span class="check"></span>Виктория</label>
         <label class="option"><input type="radio" name="name" value="Юля"><span class="check"></span>Юля</label>
-        <label class="option"><input type="radio" name="name" value="Марина"><span class="check"></span>Марина</label>
         <label class="option"><input type="radio" name="name" value="Элля"><span class="check"></span>Элля</label>
         <label class="option"><input type="radio" name="name" value="Кристина"><span class="check"></span>Кристина</label>
         <label class="option"><input type="radio" name="name" value="Лена (та которая худая)"><span class="check"></span>Лена (та которая худая)</label>
@@ -496,34 +492,34 @@ body[data-tint="1"]{background:var(--tint-final);}
           <span class="day" style="--d:7">3</span>
           <span class="day" style="--d:8">4</span>
           <span class="day" style="--d:9">5</span>
-          <span class="day" style="--d:10">6</span>
-          <span class="day" style="--d:11">7</span>
-          <span class="day" style="--d:12">8</span>
+          <span class="day day--booked" style="--d:10" title="Занято">6</span>
+          <span class="day day--booked" style="--d:11" title="Занято">7</span>
+          <span class="day day--booked" style="--d:12" title="Занято">8</span>
           <span class="day" style="--d:13">9</span>
           <span class="day" style="--d:14">10</span>
           <span class="day" style="--d:15">11</span>
           <span class="day" style="--d:16">12</span>
-          <span class="day" style="--d:17">13</span>
-          <span class="day" style="--d:18">14</span>
-          <span class="day" style="--d:19">15</span>
+          <span class="day day--booked" style="--d:17" title="Занято">13</span>
+          <span class="day day--booked" style="--d:18" title="Занято">14</span>
+          <span class="day day--booked" style="--d:19" title="Занято">15</span>
           <span class="day" style="--d:20">16</span>
           <span class="day" style="--d:21">17</span>
           <span class="day" style="--d:22">18</span>
-          <span class="day" style="--d:23">19</span>
-          <span class="day" style="--d:24">20</span>
-          <span class="day" style="--d:25">21</span>
+          <span class="day day--booked" style="--d:23" title="Занято">19</span>
+          <span class="day day--booked" style="--d:24" title="Занято">20</span>
+          <span class="day day--booked" style="--d:25" title="Занято">21</span>
           <span class="day" style="--d:26">22</span>
-          <span class="day" style="--d:27">23</span>
-          <span class="day" style="--d:28">24</span>
-          <span class="day" style="--d:29">25</span>
-          <span class="day" style="--d:30">26</span>
-          <span class="day" style="--d:31">27</span>
+          <span class="day day--booked" style="--d:27" title="Занято">23</span>
+          <span class="day day--booked" style="--d:28" title="Занято">24</span>
+          <span class="day day--booked" style="--d:29" title="Занято">25</span>
+          <span class="day day--booked" style="--d:30" title="Занято">26</span>
+          <label class="day day--free" style="--d:31"><input type="checkbox" name="date" value="27 августа">27</label>
           <label class="day day--free" style="--d:32"><input type="checkbox" name="date" value="28 августа">28</label>
           <label class="day day--free" style="--d:33"><input type="checkbox" name="date" value="29 августа">29</label>
           <label class="day day--free" style="--d:34"><input type="checkbox" name="date" value="30 августа">30</label>
-          <span class="day" style="--d:35">31</span>
+          <label class="day day--free" style="--d:35"><input type="checkbox" name="date" value="31 августа">31</label>
         </div>
-        <p class="cal__note">Свободны только 28, 29 и 30 августа</p>
+        <div class="cal__legend"><span><i class="sw-free"></i>свободно</span><span><i class="sw-booked"></i>занято</span></div>
       </div>
       <p class="counter" id="dateCounter">Выберите один или несколько дней</p>
       <div class="actions">
@@ -548,7 +544,7 @@ body[data-tint="1"]{background:var(--tint-final);}
         <label class="option"><input type="checkbox" name="prog" value="кино"><span class="check check--sq"></span>Посмотреть кино</label>
         <label class="option"><input type="checkbox" name="prog" value="минет"><span class="check check--sq"></span>Минет</label>
         <label class="option"><input type="checkbox" name="prog" value="ВкусВилл"><span class="check check--sq"></span>Сходить во ВкусВилл на скидки</label>
-        <label class="option"><input type="checkbox" name="prog" value="массаж"><span class="check check--sq"></span>Массаж</label>
+        <label class="option"><input type="checkbox" name="prog" value="массаж Егору"><span class="check check--sq"></span>Массаж Егору</label>
         <label class="option"><input type="checkbox" name="prog" value="секс"><span class="check check--sq"></span>Секс</label>
         <label class="option"><input type="checkbox" name="prog" value="ванна вместе"><span class="check check--sq"></span>Ванна вместе</label>
       </div>
