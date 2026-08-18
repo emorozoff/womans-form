@@ -1,0 +1,430 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Анкета гостя</title>
+<meta name="description" content="Анкета гостя. Заполняется до прибытия.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Golos+Text:wght@400;500;600;700&display=swap">
+<style>
+:root{
+  --bg:#FFFFFF;
+  --ink:#0C0D12;
+  --muted:#6A6E7E;
+  --line:#E2E3EA;
+  --line-strong:#C9CBD6;
+  --surface:#F5F6FA;
+  --blue:#1F45FF;
+  --blue-ink:#FFFFFF;
+  --blue-wash:#EDF0FF;
+  --font:'Golos Text', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --bg:#0B0C10;
+    --ink:#ECEDF2;
+    --muted:#8B90A2;
+    --line:#23252E;
+    --line-strong:#3A3D4A;
+    --surface:#14161D;
+    --blue:#6E86FF;
+    --blue-ink:#0B0C10;
+    --blue-wash:#161A2E;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0B0C10;
+  --ink:#ECEDF2;
+  --muted:#8B90A2;
+  --line:#23252E;
+  --line-strong:#3A3D4A;
+  --surface:#14161D;
+  --blue:#6E86FF;
+  --blue-ink:#0B0C10;
+  --blue-wash:#161A2E;
+}
+
+*{box-sizing:border-box;}
+html{-webkit-text-size-adjust:100%;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:var(--font);
+  font-size:16px;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+
+.progress{
+  position:fixed;
+  top:0; left:0; right:0;
+  height:2px;
+  background:var(--line);
+  z-index:10;
+}
+.progress__fill{
+  height:100%;
+  width:0%;
+  background:var(--blue);
+  transition:width .35s cubic-bezier(.4,0,.2,1);
+}
+
+.wrap{
+  min-height:100dvh;
+  display:flex;
+  flex-direction:column;
+  padding:calc(env(safe-area-inset-top) + 3.5rem) 1.25rem calc(env(safe-area-inset-bottom) + 2.5rem);
+}
+.inner{
+  width:100%;
+  max-width:26rem;
+  margin:auto;
+}
+
+.screen{display:none;}
+.screen.is-active{display:block;}
+@media (prefers-reduced-motion: no-preference){
+  .screen.is-active{animation:enter .28s cubic-bezier(.2,.7,.3,1) both;}
+}
+@keyframes enter{
+  from{opacity:0; transform:translateY(8px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+.eyebrow{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+  margin:0 0 .6rem;
+}
+h1{
+  font-size:1.5rem;
+  font-weight:600;
+  line-height:1.25;
+  letter-spacing:-.015em;
+  margin:0;
+  text-wrap:balance;
+}
+.lede{
+  color:var(--muted);
+  font-size:.95rem;
+  margin:.6rem 0 0;
+  max-width:24rem;
+}
+.options{margin:1.6rem 0 0;}
+
+.chips{
+  display:grid;
+  grid-template-columns:repeat(auto-fill, minmax(8rem, 1fr));
+  gap:.5rem;
+}
+.chip{
+  display:block;
+  position:relative;
+  border:1px solid var(--line-strong);
+  border-radius:2px;
+  padding:.8rem .75rem;
+  font-size:.95rem;
+  text-align:center;
+  cursor:pointer;
+  transition:border-color .12s, color .12s, background-color .12s;
+  user-select:none;
+}
+.chip input{position:absolute; opacity:0; width:0; height:0;}
+.chip:hover{border-color:var(--ink);}
+.chip:has(input:checked){
+  border-color:var(--blue);
+  background:var(--blue);
+  color:var(--blue-ink);
+}
+.chip:has(input:focus-visible){outline:2px solid var(--blue); outline-offset:2px;}
+
+.rows{display:flex; flex-direction:column; gap:.5rem;}
+.row{
+  display:flex;
+  align-items:center;
+  gap:.75rem;
+  position:relative;
+  border:1px solid var(--line-strong);
+  border-radius:2px;
+  padding:.9rem 1rem;
+  cursor:pointer;
+  transition:border-color .12s, background-color .12s;
+  user-select:none;
+}
+.row input{position:absolute; opacity:0; width:0; height:0;}
+.row:hover{border-color:var(--ink);}
+.row__box{
+  flex:0 0 auto;
+  width:1.15rem;
+  height:1.15rem;
+  border:1px solid var(--line-strong);
+  border-radius:1px;
+  position:relative;
+  transition:border-color .12s, background-color .12s;
+}
+.row__box::after{
+  content:"";
+  position:absolute;
+  left:.33rem; top:.14rem;
+  width:.3rem; height:.55rem;
+  border:solid var(--blue-ink);
+  border-width:0 2px 2px 0;
+  transform:rotate(45deg) scale(0);
+  transition:transform .12s cubic-bezier(.3,1.4,.5,1);
+}
+.row__label{font-size:1rem;}
+.row__sub{color:var(--muted); font-size:.95rem;}
+.row:has(input:checked){border-color:var(--blue); background:var(--blue-wash);}
+.row:has(input:checked) .row__box{border-color:var(--blue); background:var(--blue);}
+.row:has(input:checked) .row__box::after{transform:rotate(45deg) scale(1);}
+.row:has(input:focus-visible){outline:2px solid var(--blue); outline-offset:2px;}
+
+.counter{
+  font-size:.85rem;
+  color:var(--muted);
+  margin:.9rem 0 0;
+  font-variant-numeric:tabular-nums;
+}
+.counter.is-ok{color:var(--blue);}
+
+.actions{
+  margin:1.6rem 0 0;
+  display:flex;
+  flex-direction:column;
+  gap:.9rem;
+  align-items:flex-start;
+}
+.btn{
+  font-family:inherit;
+  font-size:.95rem;
+  font-weight:500;
+  border:1px solid var(--blue);
+  background:var(--blue);
+  color:var(--blue-ink);
+  border-radius:2px;
+  padding:.85rem 1.6rem;
+  cursor:pointer;
+  width:100%;
+  transition:opacity .12s;
+}
+.btn:hover{opacity:.88;}
+.btn:focus-visible{outline:2px solid var(--blue); outline-offset:3px;}
+.btn[disabled]{
+  border-color:var(--line);
+  background:var(--line);
+  color:var(--muted);
+  cursor:not-allowed;
+  opacity:1;
+}
+.btn-back{
+  font-family:inherit;
+  font-size:.85rem;
+  color:var(--muted);
+  background:none;
+  border:none;
+  padding:.25rem 0;
+  cursor:pointer;
+  text-decoration:underline;
+  text-underline-offset:3px;
+}
+.btn-back:hover{color:var(--ink);}
+.btn-back:focus-visible{outline:2px solid var(--blue); outline-offset:2px;}
+
+.summary{
+  margin:1.6rem 0 0;
+  border-top:1px solid var(--line);
+}
+.summary__item{
+  display:flex;
+  flex-direction:column;
+  gap:.2rem;
+  padding:.9rem 0;
+  border-bottom:1px solid var(--line);
+}
+.summary__key{
+  font-size:.7rem;
+  font-weight:600;
+  letter-spacing:.09em;
+  text-transform:uppercase;
+  color:var(--muted);
+}
+.summary__val{font-size:1rem;}
+.footnote{
+  margin:1.4rem 0 0;
+  font-size:.85rem;
+  color:var(--muted);
+}
+</style>
+</head>
+<body>
+
+<div class="progress"><div class="progress__fill" id="progressFill"></div></div>
+
+<div class="wrap">
+  <div class="inner">
+
+    <section class="screen is-active" data-step="0">
+      <p class="eyebrow">Форма 1-ЛП</p>
+      <h1>Анкета гостя</h1>
+      <p class="lede">Заполняется до прибытия. Три вопроса, все поля обязательны.</p>
+      <div class="actions">
+        <button class="btn" type="button" data-go="1">Начать</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="1">
+      <p class="eyebrow">Вопрос 1 из 3</p>
+      <h1>Укажите имя</h1>
+      <p class="lede">Выберите один вариант.</p>
+      <div class="options">
+        <div class="chips" id="names">
+          <label class="chip"><input type="radio" name="name" value="Виктория">Виктория</label>
+          <label class="chip"><input type="radio" name="name" value="Алла">Алла</label>
+          <label class="chip"><input type="radio" name="name" value="Юлия">Юлия</label>
+          <label class="chip"><input type="radio" name="name" value="Стелла">Стелла</label>
+          <label class="chip"><input type="radio" name="name" value="Марина">Марина</label>
+          <label class="chip"><input type="radio" name="name" value="Элля">Элля</label>
+          <label class="chip"><input type="radio" name="name" value="Кристина">Кристина</label>
+          <label class="chip"><input type="radio" name="name" value="Оксана">Оксана</label>
+          <label class="chip"><input type="radio" name="name" value="Белла">Белла</label>
+          <label class="chip"><input type="radio" name="name" value="Анна">Анна</label>
+          <label class="chip"><input type="radio" name="name" value="Лена (худая)">Лена (худая)</label>
+          <label class="chip"><input type="radio" name="name" value="Лена (пышная)">Лена (пышная)</label>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn-back" type="button" data-go="0">Назад</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="2">
+      <p class="eyebrow">Вопрос 2 из 3</p>
+      <h1>Даты пребывания</h1>
+      <p class="lede">Отметьте один или несколько дней.</p>
+      <div class="options">
+        <div class="rows" id="dates">
+          <label class="row"><input type="checkbox" name="date" value="28 августа"><span class="row__box"></span><span class="row__label">28 августа <span class="row__sub">пятница</span></span></label>
+          <label class="row"><input type="checkbox" name="date" value="29 августа"><span class="row__box"></span><span class="row__label">29 августа <span class="row__sub">суббота</span></span></label>
+          <label class="row"><input type="checkbox" name="date" value="30 августа"><span class="row__box"></span><span class="row__label">30 августа <span class="row__sub">воскресенье</span></span></label>
+        </div>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" id="datesNext" disabled>Далее</button>
+        <button class="btn-back" type="button" data-go="1">Назад</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="3">
+      <p class="eyebrow">Вопрос 3 из 3</p>
+      <h1>Программа пребывания</h1>
+      <p class="lede">Отметьте не менее 3 пунктов.</p>
+      <div class="options">
+        <div class="rows" id="program">
+          <label class="row"><input type="checkbox" name="prog" value="кино"><span class="row__box"></span><span class="row__label">Посмотреть кино</span></label>
+          <label class="row"><input type="checkbox" name="prog" value="минет"><span class="row__box"></span><span class="row__label">Минет</span></label>
+          <label class="row"><input type="checkbox" name="prog" value="ВкусВилл"><span class="row__box"></span><span class="row__label">Сходить во ВкусВилл</span></label>
+          <label class="row"><input type="checkbox" name="prog" value="массаж"><span class="row__box"></span><span class="row__label">Массаж</span></label>
+          <label class="row"><input type="checkbox" name="prog" value="секс"><span class="row__box"></span><span class="row__label">Секс</span></label>
+          <label class="row"><input type="checkbox" name="prog" value="ванна вместе"><span class="row__box"></span><span class="row__label">Ванна вместе</span></label>
+        </div>
+        <p class="counter" id="progCounter">Отмечено: 0 · минимум 3</p>
+      </div>
+      <div class="actions">
+        <button class="btn" type="button" id="progNext" disabled>Отправить</button>
+        <button class="btn-back" type="button" data-go="2">Назад</button>
+      </div>
+    </section>
+
+    <section class="screen" data-step="4">
+      <p class="eyebrow">Готово</p>
+      <h1>Анкета принята</h1>
+      <p class="lede">Данные зафиксированы.</p>
+      <div class="summary">
+        <div class="summary__item">
+          <span class="summary__key">Имя</span>
+          <span class="summary__val" id="sumName">—</span>
+        </div>
+        <div class="summary__item">
+          <span class="summary__key">Даты пребывания</span>
+          <span class="summary__val" id="sumDates">—</span>
+        </div>
+        <div class="summary__item">
+          <span class="summary__key">Программа</span>
+          <span class="summary__val" id="sumProg">—</span>
+        </div>
+      </div>
+      <p class="footnote">Изменения не принимаются.</p>
+    </section>
+
+  </div>
+</div>
+
+<script>
+(function(){
+  var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
+  var fill = document.getElementById('progressFill');
+  var TOTAL = 3;
+
+  function show(step){
+    screens.forEach(function(s){
+      s.classList.toggle('is-active', Number(s.dataset.step) === step);
+    });
+    var pct = step === 0 ? 0 : Math.min(step, TOTAL) / TOTAL * 100;
+    fill.style.width = pct + '%';
+    window.scrollTo(0, 0);
+  }
+
+  document.querySelectorAll('[data-go]').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      show(Number(btn.dataset.go));
+    });
+  });
+
+  document.querySelectorAll('#names input').forEach(function(input){
+    input.addEventListener('change', function(){
+      setTimeout(function(){ show(2); }, 240);
+    });
+  });
+
+  var dateInputs = document.querySelectorAll('#dates input');
+  var datesNext = document.getElementById('datesNext');
+  dateInputs.forEach(function(input){
+    input.addEventListener('change', function(){
+      datesNext.disabled = document.querySelectorAll('#dates input:checked').length === 0;
+    });
+  });
+  datesNext.addEventListener('click', function(){ show(3); });
+
+  var progInputs = document.querySelectorAll('#program input');
+  var progNext = document.getElementById('progNext');
+  var progCounter = document.getElementById('progCounter');
+  progInputs.forEach(function(input){
+    input.addEventListener('change', function(){
+      var n = document.querySelectorAll('#program input:checked').length;
+      progCounter.textContent = n >= 3 ? 'Отмечено: ' + n : 'Отмечено: ' + n + ' · минимум 3';
+      progCounter.classList.toggle('is-ok', n >= 3);
+      progNext.disabled = n < 3;
+    });
+  });
+
+  progNext.addEventListener('click', function(){
+    var name = document.querySelector('#names input:checked');
+    var dates = Array.prototype.map.call(document.querySelectorAll('#dates input:checked'), function(i){ return i.value; });
+    var prog = Array.prototype.map.call(document.querySelectorAll('#program input:checked'), function(i){ return i.value; });
+
+    document.getElementById('sumName').textContent = name ? name.value : '—';
+    document.getElementById('sumDates').textContent = dates.join(', ');
+    document.getElementById('sumProg').textContent = prog.join(', ');
+    show(4);
+  });
+})();
+</script>
+
+</body>
+</html>
