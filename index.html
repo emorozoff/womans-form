@@ -480,7 +480,7 @@ body[data-tint="1"]{background:var(--tint-final);}
       <div class="brand">Служба размещения гостей</div>
       <div>
         <h1 class="h1">Форма на ночлег у Егора</h1>
-        <p class="body-text">Три вопроса. Заполняется до прибытия, имеет юридическую силу и обжалованию не подлежит.</p>
+        <p class="body-text">Заполняется до прибытия. Без формы заселение невозможно.</p>
       </div>
       <div class="actions" style="margin-top:0; padding-top:0;">
         <button class="btn-primary" type="button" data-go="1">Начать</button>
@@ -493,12 +493,13 @@ body[data-tint="1"]{background:var(--tint-final);}
       <div class="seg" data-seg="1"></div>
       <div class="seg" data-seg="2"></div>
       <div class="seg" data-seg="3"></div>
+      <div class="seg" data-seg="4"></div>
     </div>
     <button class="back-btn" type="button" data-go="0" aria-label="Назад">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="pad-question">
-      <div class="eyebrow">Вопрос 1 из 3</div>
+      <div class="eyebrow">Вопрос 1 из 4</div>
       <h2 class="h1-question">Укажите имя</h2>
       <div class="options" id="names">
         <label class="option"><input type="radio" name="name" value="Юля"><span class="check"></span>Юля</label>
@@ -515,12 +516,13 @@ body[data-tint="1"]{background:var(--tint-final);}
       <div class="seg" data-seg="1"></div>
       <div class="seg" data-seg="2"></div>
       <div class="seg" data-seg="3"></div>
+      <div class="seg" data-seg="4"></div>
     </div>
     <button class="back-btn" type="button" data-go="1" aria-label="Назад">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="pad-question">
-      <div class="eyebrow">Вопрос 2 из 3</div>
+      <div class="eyebrow">Вопрос 2 из 4</div>
       <h2 class="h1-question">Даты пребывания</h2>
       <div class="cal">
         <p class="cal__month">Август 2026</p>
@@ -577,12 +579,35 @@ body[data-tint="1"]{background:var(--tint-final);}
       <div class="seg" data-seg="1"></div>
       <div class="seg" data-seg="2"></div>
       <div class="seg" data-seg="3"></div>
+      <div class="seg" data-seg="4"></div>
     </div>
     <button class="back-btn" type="button" data-go="2" aria-label="Назад">
       <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
     </button>
     <div class="pad-question">
-      <div class="eyebrow">Вопрос 3 из 3</div>
+      <div class="eyebrow">Вопрос 3 из 4</div>
+      <h2 class="h1-question">Готовность убирать какашки из лотка</h2>
+      <div class="options" id="litter">
+        <label class="option"><input type="radio" name="litter" value="готова"><span class="check"></span>Готова</label>
+        <label class="option"><input type="radio" name="litter" value="готова, но через раз"><span class="check"></span>Готова, но через раз</label>
+        <label class="option"><input type="radio" name="litter" value="только в перчатках и молча"><span class="check"></span>Только в перчатках и молча</label>
+        <label class="option"><input type="radio" name="litter" value="не готова, но буду делать вид"><span class="check"></span>Не готова, но буду делать вид что готова</label>
+      </div>
+    </div>
+  </section>
+
+  <section class="screen" data-step="4">
+    <div class="progress">
+      <div class="seg" data-seg="1"></div>
+      <div class="seg" data-seg="2"></div>
+      <div class="seg" data-seg="3"></div>
+      <div class="seg" data-seg="4"></div>
+    </div>
+    <button class="back-btn" type="button" data-go="3" aria-label="Назад">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M15 5L8 12L15 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </button>
+    <div class="pad-question">
+      <div class="eyebrow">Вопрос 4 из 4</div>
       <h2 class="h1-question">Программа пребывания</h2>
       <div class="options" id="program">
         <label class="option"><input type="checkbox" name="prog" value="кино"><span class="check check--sq"></span>Посмотреть кино</label>
@@ -599,7 +624,7 @@ body[data-tint="1"]{background:var(--tint-final);}
     </div>
   </section>
 
-  <section class="screen" data-step="4">
+  <section class="screen" data-step="5">
     <div class="pad-final">
       <div class="check-circle">
         <svg width="22" height="17" viewBox="0 0 24 18" fill="none"><path d="M2 9L9 16L22 2" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -615,6 +640,10 @@ body[data-tint="1"]{background:var(--tint-final);}
         <div class="card__item">
           <span class="card__key">Даты пребывания</span>
           <span class="card__val" id="sumDates">—</span>
+        </div>
+        <div class="card__item">
+          <span class="card__key">Уборка лотка</span>
+          <span class="card__val" id="sumLitter">—</span>
         </div>
         <div class="card__item">
           <span class="card__key">Программа</span>
@@ -649,7 +678,7 @@ body[data-tint="1"]{background:var(--tint-final);}
 (function(){
   var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
   var segs = Array.prototype.slice.call(document.querySelectorAll('.seg'));
-  var TINT_STEPS = [4];
+  var TINT_STEPS = [5];
 
   function show(step){
     screens.forEach(function(s){ s.classList.toggle('is-active', Number(s.dataset.step) === step); });
@@ -734,6 +763,14 @@ body[data-tint="1"]{background:var(--tint-final);}
 
   datesNext.addEventListener('click', function(){ show(3); });
 
+  document.querySelectorAll('#litter input').forEach(function(input){
+    input.addEventListener('change', function(){
+      var opt = input.closest('.option');
+      opt.classList.add('is-picked');
+      setTimeout(function(){ opt.classList.remove('is-picked'); show(4); }, 360);
+    });
+  });
+
   var progNext = document.getElementById('progNext');
   var progCounter = document.getElementById('progCounter');
   document.querySelectorAll('#program input').forEach(function(input){
@@ -747,6 +784,7 @@ body[data-tint="1"]{background:var(--tint-final);}
 
   progNext.addEventListener('click', function(){
     var name = document.querySelector('#names input:checked');
+    var litter = document.querySelector('#litter input:checked');
     var prog = Array.prototype.map.call(document.querySelectorAll('#program input:checked'), function(i){ return i.value; });
     var stay = checkOut === null ? '—' :
       'заезд ' + checkIn + ' августа, отъезд ' + checkOut + ' августа';
@@ -758,11 +796,12 @@ body[data-tint="1"]{background:var(--tint-final);}
 
     document.getElementById('sumName').textContent = name ? name.value : '—';
     document.getElementById('sumDates').textContent = stay;
+    document.getElementById('sumLitter').textContent = litter ? litter.value : '—';
     document.getElementById('sumProg').textContent = prog.join(', ');
     document.getElementById('sigName').textContent = name ? name.value : '—';
     document.getElementById('sigDate').textContent = stamp;
     document.getElementById('stampDate').textContent = stamp;
-    show(4);
+    show(5);
   });
 })();
 </script>
