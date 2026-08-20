@@ -233,6 +233,11 @@ body[data-tint="1"]{background:var(--tint-final);}
   background:var(--white);
   padding:1.1rem 1rem 1rem;
 }
+.cal__mon + .cal__mon{
+  margin-top:1.4rem;
+  padding-top:1.4rem;
+  border-top:1px solid var(--ink-10);
+}
 .cal__month{
   font-family:var(--sans);
   font-weight:600;
@@ -348,6 +353,46 @@ body[data-tint="1"]{background:var(--tint-final);}
 .cal__legend .sw-g2{background:var(--g2-wash); border:1px solid var(--g2-line);}
 .cal__legend .sw-g3{background:var(--g3-wash); border:1px solid var(--g3-line);}
 .cal__legend .swatches{display:flex; gap:.2rem;}
+
+/* попап */
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:20;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:1.5rem;
+}
+.modal[hidden]{display:none;}
+.modal__backdrop{
+  position:absolute;
+  inset:0;
+  background:rgba(43,38,34,.32);
+  animation:fade .2s var(--ease) both;
+}
+.modal__box{
+  position:relative;
+  background:var(--white);
+  border-radius:20px;
+  padding:1.6rem 1.4rem 1.2rem;
+  max-width:19rem;
+  width:100%;
+  text-align:center;
+  box-shadow:0 24px 60px -20px rgba(43,38,34,.35);
+  animation:popin .28s cubic-bezier(.25,1.25,.4,1) both;
+}
+.modal__text{
+  margin:0 0 1.3rem;
+  font-size:1rem;
+  line-height:1.45;
+  color:var(--ink);
+}
+@keyframes fade{from{opacity:0;} to{opacity:1;}}
+@keyframes popin{
+  from{opacity:0; transform:scale(.9) translateY(8px);}
+  to{opacity:1; transform:scale(1) translateY(0);}
+}
 
 .counter{
   font-size:.82rem;
@@ -524,46 +569,85 @@ body[data-tint="1"]{background:var(--tint-final);}
     <div class="pad-question">
       <div class="eyebrow">Вопрос 2 из 4</div>
       <h2 class="h1-question">Даты пребывания</h2>
-      <div class="cal">
-        <p class="cal__month">Август 2026</p>
-        <div class="cal__dows" aria-hidden="true"><span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>вс</span></div>
-        <div class="cal__grid" id="dates">
-          <span class="day day--pad" aria-hidden="true"></span>
-          <span class="day day--pad" aria-hidden="true"></span>
-          <span class="day day--pad" aria-hidden="true"></span>
-          <span class="day day--pad" aria-hidden="true"></span>
-          <span class="day day--pad" aria-hidden="true"></span>
-          <span class="day" style="--d:5"><span class="day__bar"></span><span class="num">1</span></span>
-          <span class="day" style="--d:6"><span class="day__bar"></span><span class="num">2</span></span>
-          <span class="day day--booked day--g1" style="--d:7" title="Занято"><span class="day__bar"></span><span class="num">3</span></span>
-          <span class="day day--booked day--g1" style="--d:8" title="Занято"><span class="day__bar"></span><span class="num">4</span></span>
-          <span class="day day--booked day--g1" style="--d:9" title="Занято"><span class="day__bar"></span><span class="num">5</span></span>
-          <span class="day" style="--d:10"><span class="day__bar"></span><span class="num">6</span></span>
-          <span class="day" style="--d:11"><span class="day__bar"></span><span class="num">7</span></span>
-          <span class="day" style="--d:12"><span class="day__bar"></span><span class="num">8</span></span>
-          <span class="day day--booked day--g2" style="--d:13" title="Занято"><span class="day__bar"></span><span class="num">9</span></span>
-          <span class="day day--booked day--g2" style="--d:14" title="Занято"><span class="day__bar"></span><span class="num">10</span></span>
-          <span class="day day--booked day--g2" style="--d:15" title="Занято"><span class="day__bar"></span><span class="num">11</span></span>
-          <span class="day day--booked day--g2" style="--d:16" title="Занято"><span class="day__bar"></span><span class="num">12</span></span>
-          <span class="day" style="--d:17"><span class="day__bar"></span><span class="num">13</span></span>
-          <span class="day" style="--d:18"><span class="day__bar"></span><span class="num">14</span></span>
-          <span class="day" style="--d:19"><span class="day__bar"></span><span class="num">15</span></span>
-          <span class="day day--booked day--g3" style="--d:20" title="Занято"><span class="day__bar"></span><span class="num">16</span></span>
-          <span class="day day--booked day--g3" style="--d:21" title="Занято"><span class="day__bar"></span><span class="num">17</span></span>
-          <span class="day day--booked day--g3" style="--d:22" title="Занято"><span class="day__bar"></span><span class="num">18</span></span>
-          <span class="day day--booked day--g3" style="--d:23" title="Занято"><span class="day__bar"></span><span class="num">19</span></span>
-          <span class="day day--booked day--g3" style="--d:24" title="Занято"><span class="day__bar"></span><span class="num">20</span></span>
-          <span class="day" style="--d:25"><span class="day__bar"></span><span class="num">21</span></span>
-          <span class="day" style="--d:26"><span class="day__bar"></span><span class="num">22</span></span>
-          <span class="day day--booked day--g1" style="--d:27" title="Занято"><span class="day__bar"></span><span class="num">23</span></span>
-          <span class="day day--booked day--g1" style="--d:28" title="Занято"><span class="day__bar"></span><span class="num">24</span></span>
-          <span class="day day--booked day--g1" style="--d:29" title="Занято"><span class="day__bar"></span><span class="num">25</span></span>
-          <span class="day day--booked day--g1" style="--d:30" title="Занято"><span class="day__bar"></span><span class="num">26</span></span>
-          <button type="button" class="day day--free" style="--d:31" data-day="27" aria-label="27 августа"><span class="day__bar"></span><span class="num">27</span></button>
-          <button type="button" class="day day--free" style="--d:32" data-day="28" aria-label="28 августа"><span class="day__bar"></span><span class="num">28</span></button>
-          <button type="button" class="day day--free" style="--d:33" data-day="29" aria-label="29 августа"><span class="day__bar"></span><span class="num">29</span></button>
-          <button type="button" class="day day--free" style="--d:34" data-day="30" aria-label="30 августа"><span class="day__bar"></span><span class="num">30</span></button>
-          <button type="button" class="day day--free" style="--d:35" data-day="31" aria-label="31 августа"><span class="day__bar"></span><span class="num">31</span></button>
+      <div class="cal" id="dates">
+        <div class="cal__mon">
+          <p class="cal__month">Август 2026</p>
+          <div class="cal__dows" aria-hidden="true"><span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>вс</span></div>
+          <div class="cal__grid">
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day day--pad" aria-hidden="true"></span>
+            <span class="day" style="--d:5"><span class="day__bar"></span><span class="num">1</span></span>
+            <span class="day" style="--d:6"><span class="day__bar"></span><span class="num">2</span></span>
+            <span class="day day--booked day--g1" style="--d:7" title="Занято"><span class="day__bar"></span><span class="num">3</span></span>
+            <span class="day day--booked day--g1" style="--d:8" title="Занято"><span class="day__bar"></span><span class="num">4</span></span>
+            <span class="day day--booked day--g1" style="--d:9" title="Занято"><span class="day__bar"></span><span class="num">5</span></span>
+            <span class="day" style="--d:10"><span class="day__bar"></span><span class="num">6</span></span>
+            <span class="day" style="--d:11"><span class="day__bar"></span><span class="num">7</span></span>
+            <span class="day" style="--d:12"><span class="day__bar"></span><span class="num">8</span></span>
+            <span class="day day--booked day--g2" style="--d:13" title="Занято"><span class="day__bar"></span><span class="num">9</span></span>
+            <span class="day day--booked day--g2" style="--d:14" title="Занято"><span class="day__bar"></span><span class="num">10</span></span>
+            <span class="day day--booked day--g2" style="--d:15" title="Занято"><span class="day__bar"></span><span class="num">11</span></span>
+            <span class="day day--booked day--g2" style="--d:16" title="Занято"><span class="day__bar"></span><span class="num">12</span></span>
+            <span class="day" style="--d:17"><span class="day__bar"></span><span class="num">13</span></span>
+            <span class="day" style="--d:18"><span class="day__bar"></span><span class="num">14</span></span>
+            <span class="day" style="--d:19"><span class="day__bar"></span><span class="num">15</span></span>
+            <span class="day day--booked day--g3" style="--d:20" title="Занято"><span class="day__bar"></span><span class="num">16</span></span>
+            <span class="day day--booked day--g3" style="--d:21" title="Занято"><span class="day__bar"></span><span class="num">17</span></span>
+            <span class="day day--booked day--g3" style="--d:22" title="Занято"><span class="day__bar"></span><span class="num">18</span></span>
+            <span class="day day--booked day--g3" style="--d:23" title="Занято"><span class="day__bar"></span><span class="num">19</span></span>
+            <span class="day day--booked day--g3" style="--d:24" title="Занято"><span class="day__bar"></span><span class="num">20</span></span>
+            <button type="button" class="day day--free" style="--d:25" data-serial="21" data-label="21 августа" aria-label="21 августа"><span class="day__bar"></span><span class="num">21</span></button>
+            <button type="button" class="day day--free" style="--d:26" data-serial="22" data-label="22 августа" aria-label="22 августа"><span class="day__bar"></span><span class="num">22</span></button>
+            <span class="day day--booked day--g1" style="--d:27" title="Занято"><span class="day__bar"></span><span class="num">23</span></span>
+            <span class="day day--booked day--g1" style="--d:28" title="Занято"><span class="day__bar"></span><span class="num">24</span></span>
+            <span class="day day--booked day--g1" style="--d:29" title="Занято"><span class="day__bar"></span><span class="num">25</span></span>
+            <span class="day day--booked day--g1" style="--d:30" title="Занято"><span class="day__bar"></span><span class="num">26</span></span>
+            <button type="button" class="day day--free" style="--d:31" data-serial="27" data-label="27 августа" aria-label="27 августа"><span class="day__bar"></span><span class="num">27</span></button>
+            <button type="button" class="day day--free" style="--d:32" data-serial="28" data-label="28 августа" aria-label="28 августа"><span class="day__bar"></span><span class="num">28</span></button>
+            <button type="button" class="day day--free" style="--d:33" data-serial="29" data-label="29 августа" aria-label="29 августа"><span class="day__bar"></span><span class="num">29</span></button>
+            <button type="button" class="day day--free" style="--d:34" data-serial="30" data-label="30 августа" aria-label="30 августа"><span class="day__bar"></span><span class="num">30</span></button>
+            <button type="button" class="day day--free" style="--d:35" data-serial="31" data-label="31 августа" aria-label="31 августа"><span class="day__bar"></span><span class="num">31</span></button>
+          </div>
+        </div>
+        <div class="cal__mon">
+          <p class="cal__month">Сентябрь 2026</p>
+          <div class="cal__dows" aria-hidden="true"><span>пн</span><span>вт</span><span>ср</span><span>чт</span><span>пт</span><span>сб</span><span>вс</span></div>
+          <div class="cal__grid">
+            <span class="day day--pad" aria-hidden="true"></span>
+            <button type="button" class="day day--free" style="--d:1" data-serial="32" data-label="1 сентября" aria-label="1 сентября"><span class="day__bar"></span><span class="num">1</span></button>
+            <button type="button" class="day day--free" style="--d:2" data-serial="33" data-label="2 сентября" aria-label="2 сентября"><span class="day__bar"></span><span class="num">2</span></button>
+            <button type="button" class="day day--free" style="--d:3" data-serial="34" data-label="3 сентября" aria-label="3 сентября"><span class="day__bar"></span><span class="num">3</span></button>
+            <span class="day day--booked day--g2" style="--d:4" title="Занято"><span class="day__bar"></span><span class="num">4</span></span>
+            <span class="day day--booked day--g2" style="--d:5" title="Занято"><span class="day__bar"></span><span class="num">5</span></span>
+            <span class="day day--booked day--g2" style="--d:6" title="Занято"><span class="day__bar"></span><span class="num">6</span></span>
+            <button type="button" class="day day--free" style="--d:7" data-serial="38" data-label="7 сентября" aria-label="7 сентября"><span class="day__bar"></span><span class="num">7</span></button>
+            <button type="button" class="day day--free" style="--d:8" data-serial="39" data-label="8 сентября" aria-label="8 сентября"><span class="day__bar"></span><span class="num">8</span></button>
+            <button type="button" class="day day--free" style="--d:9" data-serial="40" data-label="9 сентября" aria-label="9 сентября"><span class="day__bar"></span><span class="num">9</span></button>
+            <button type="button" class="day day--free" style="--d:10" data-serial="41" data-label="10 сентября" aria-label="10 сентября"><span class="day__bar"></span><span class="num">10</span></button>
+            <span class="day day--booked day--g1" style="--d:11" title="Занято"><span class="day__bar"></span><span class="num">11</span></span>
+            <span class="day day--booked day--g1" style="--d:12" title="Занято"><span class="day__bar"></span><span class="num">12</span></span>
+            <span class="day day--booked day--g1" style="--d:13" title="Занято"><span class="day__bar"></span><span class="num">13</span></span>
+            <button type="button" class="day day--free" style="--d:14" data-serial="45" data-label="14 сентября" aria-label="14 сентября"><span class="day__bar"></span><span class="num">14</span></button>
+            <button type="button" class="day day--free" style="--d:15" data-serial="46" data-label="15 сентября" aria-label="15 сентября"><span class="day__bar"></span><span class="num">15</span></button>
+            <button type="button" class="day day--free" style="--d:16" data-serial="47" data-label="16 сентября" aria-label="16 сентября"><span class="day__bar"></span><span class="num">16</span></button>
+            <button type="button" class="day day--free" style="--d:17" data-serial="48" data-label="17 сентября" aria-label="17 сентября"><span class="day__bar"></span><span class="num">17</span></button>
+            <span class="day day--booked day--g3" style="--d:18" title="Занято"><span class="day__bar"></span><span class="num">18</span></span>
+            <span class="day day--booked day--g3" style="--d:19" title="Занято"><span class="day__bar"></span><span class="num">19</span></span>
+            <span class="day day--booked day--g3" style="--d:20" title="Занято"><span class="day__bar"></span><span class="num">20</span></span>
+            <span class="day day--booked day--g3" style="--d:21" title="Занято"><span class="day__bar"></span><span class="num">21</span></span>
+            <button type="button" class="day day--free" style="--d:22" data-serial="53" data-label="22 сентября" aria-label="22 сентября"><span class="day__bar"></span><span class="num">22</span></button>
+            <button type="button" class="day day--free" style="--d:23" data-serial="54" data-label="23 сентября" aria-label="23 сентября"><span class="day__bar"></span><span class="num">23</span></button>
+            <button type="button" class="day day--free" style="--d:24" data-serial="55" data-label="24 сентября" aria-label="24 сентября"><span class="day__bar"></span><span class="num">24</span></button>
+            <button type="button" class="day day--free" style="--d:25" data-serial="56" data-label="25 сентября" aria-label="25 сентября"><span class="day__bar"></span><span class="num">25</span></button>
+            <button type="button" class="day day--free" style="--d:26" data-serial="57" data-label="26 сентября" aria-label="26 сентября"><span class="day__bar"></span><span class="num">26</span></button>
+            <button type="button" class="day day--free" style="--d:27" data-serial="58" data-label="27 сентября" aria-label="27 сентября"><span class="day__bar"></span><span class="num">27</span></button>
+            <button type="button" class="day day--free" style="--d:28" data-serial="59" data-label="28 сентября" aria-label="28 сентября"><span class="day__bar"></span><span class="num">28</span></button>
+            <button type="button" class="day day--free" style="--d:29" data-serial="60" data-label="29 сентября" aria-label="29 сентября"><span class="day__bar"></span><span class="num">29</span></button>
+            <button type="button" class="day day--free" style="--d:30" data-serial="61" data-label="30 сентября" aria-label="30 сентября"><span class="day__bar"></span><span class="num">30</span></button>
+          </div>
         </div>
         <div class="cal__legend"><span><i class="sw-free"></i>свободно</span><span><i class="swatches"><i class="sw-g1"></i><i class="sw-g2"></i><i class="sw-g3"></i></i>занято</span></div>
       </div>
@@ -586,7 +670,7 @@ body[data-tint="1"]{background:var(--tint-final);}
     </button>
     <div class="pad-question">
       <div class="eyebrow">Вопрос 3 из 4</div>
-      <h2 class="h1-question">Готовность убирать какашки из лотка</h2>
+      <h2 class="h1-question">Готовность убирать кошачьи какашки из лотка</h2>
       <div class="options" id="litter">
         <label class="option"><input type="radio" name="litter" value="готова"><span class="check"></span>Готова</label>
         <label class="option"><input type="radio" name="litter" value="готова, но через раз"><span class="check"></span>Готова, но через раз</label>
@@ -617,9 +701,8 @@ body[data-tint="1"]{background:var(--tint-final);}
         <label class="option"><input type="checkbox" name="prog" value="ванна вместе"><span class="check check--sq"></span>Ванна вместе</label>
         <label class="option"><input type="checkbox" name="prog" value="минет"><span class="check check--sq"></span>Минет</label>
       </div>
-      <p class="counter" id="progCounter">Отмечено: 0 · минимум 3</p>
       <div class="actions">
-        <button class="btn-primary" type="button" id="progNext" disabled>Отправить</button>
+        <button class="btn-primary" type="button" id="progNext">Отправить</button>
       </div>
     </div>
   </section>
@@ -674,6 +757,14 @@ body[data-tint="1"]{background:var(--tint-final);}
 
 </div>
 
+<div class="modal" id="modal" hidden>
+  <div class="modal__backdrop" data-close></div>
+  <div class="modal__box" role="alertdialog" aria-modal="true" aria-labelledby="modalText">
+    <p class="modal__text" id="modalText">Выбрать можно минимум 3 позиции</p>
+    <button class="btn-primary" type="button" id="modalOk" data-close>Понятно</button>
+  </div>
+</div>
+
 <script>
 (function(){
   var screens = Array.prototype.slice.call(document.querySelectorAll('.screen'));
@@ -703,9 +794,14 @@ body[data-tint="1"]{background:var(--tint-final);}
   var datesNext = document.getElementById('datesNext');
   var dateCounter = document.getElementById('dateCounter');
   var dayCells = Array.prototype.slice.call(document.querySelectorAll('#dates .day'));
+  var labelOf = {};
   var freeDays = dayCells
     .filter(function(c){ return c.classList.contains('day--free'); })
-    .map(function(c){ return Number(c.dataset.day); });
+    .map(function(c){
+      var serial = Number(c.dataset.serial);
+      labelOf[serial] = c.dataset.label;
+      return serial;
+    });
 
   var checkIn = null, checkOut = null;
 
@@ -726,21 +822,23 @@ body[data-tint="1"]{background:var(--tint-final);}
 
   function renderDates(){
     dayCells.forEach(function(cell){
-      var d = Number(cell.dataset.day);
-      var inRange = checkIn !== null && d >= checkIn && (checkOut === null ? d === checkIn : d <= checkOut);
-      cell.classList.toggle('in-range', !!d && inRange);
+      var d = cell.dataset.serial ? Number(cell.dataset.serial) : null;
+      var inRange = d !== null && checkIn !== null && d >= checkIn &&
+                    (checkOut === null ? d === checkIn : d <= checkOut);
+      cell.classList.toggle('in-range', !!inRange);
       cell.classList.toggle('range-start', d === checkIn);
       cell.classList.toggle('range-end', checkOut === null ? d === checkIn : d === checkOut);
-      cell.classList.toggle('is-edge', d === checkIn || (checkOut !== null && d === checkOut));
+      cell.classList.toggle('is-edge', d !== null && (d === checkIn || (checkOut !== null && d === checkOut)));
     });
 
     if (checkIn === null) {
       dateCounter.textContent = 'Выберите дату заезда';
     } else if (checkOut === null) {
-      dateCounter.textContent = 'Заезд ' + checkIn + ' августа · выберите дату отъезда';
+      dateCounter.textContent = 'Заезд ' + labelOf[checkIn] + ' · выберите дату отъезда';
     } else {
       var nights = checkOut - checkIn;
-      dateCounter.textContent = checkIn + ' — ' + checkOut + ' августа · ' + nights + ' ' + nightsWord(nights);
+      dateCounter.textContent = labelOf[checkIn] + ' — ' + labelOf[checkOut] +
+                                ' · ' + nights + ' ' + nightsWord(nights);
     }
     dateCounter.classList.toggle('is-ok', checkOut !== null);
     datesNext.disabled = checkOut === null;
@@ -749,7 +847,7 @@ body[data-tint="1"]{background:var(--tint-final);}
   dayCells.forEach(function(cell){
     if (!cell.classList.contains('day--free')) return;
     cell.addEventListener('click', function(){
-      var d = Number(cell.dataset.day);
+      var d = Number(cell.dataset.serial);
       if (checkIn === null || checkOut !== null || d <= checkIn || !rangeIsFree(checkIn, d)) {
         checkIn = d;
         checkOut = null;
@@ -771,23 +869,40 @@ body[data-tint="1"]{background:var(--tint-final);}
     });
   });
 
-  var progNext = document.getElementById('progNext');
-  var progCounter = document.getElementById('progCounter');
-  document.querySelectorAll('#program input').forEach(function(input){
-    input.addEventListener('change', function(){
-      var n = document.querySelectorAll('#program input:checked').length;
-      progCounter.textContent = n >= 3 ? 'Отмечено: ' + n : 'Отмечено: ' + n + ' · минимум 3';
-      progCounter.classList.toggle('is-ok', n >= 3);
-      progNext.disabled = n < 3;
-    });
+  /* --- попап --- */
+  var modal = document.getElementById('modal');
+  var modalOk = document.getElementById('modalOk');
+  var lastFocus = null;
+
+  function openModal(){
+    lastFocus = document.activeElement;
+    modal.hidden = false;
+    modalOk.focus();
+  }
+  function closeModal(){
+    modal.hidden = true;
+    if (lastFocus && lastFocus.focus) lastFocus.focus();
+  }
+  modal.querySelectorAll('[data-close]').forEach(function(el){
+    el.addEventListener('click', closeModal);
+  });
+  document.addEventListener('keydown', function(e){
+    if (e.key === 'Escape' && !modal.hidden) closeModal();
   });
 
+  var progNext = document.getElementById('progNext');
+
   progNext.addEventListener('click', function(){
+    if (document.querySelectorAll('#program input:checked').length < 3) {
+      openModal();
+      return;
+    }
+
     var name = document.querySelector('#names input:checked');
     var litter = document.querySelector('#litter input:checked');
     var prog = Array.prototype.map.call(document.querySelectorAll('#program input:checked'), function(i){ return i.value; });
     var stay = checkOut === null ? '—' :
-      'заезд ' + checkIn + ' августа, отъезд ' + checkOut + ' августа';
+      'заезд ' + labelOf[checkIn] + ', отъезд ' + labelOf[checkOut];
 
     var now = new Date();
     var stamp = String(now.getDate()).padStart(2, '0') + '.' +
