@@ -461,8 +461,23 @@ body[data-tint="1"]{background:var(--tint-final);}
   background:var(--white);
   border:1px solid var(--ink-14);
   border-radius:16px;
-  padding:.2rem 1.2rem;
+  padding:0 1.2rem .2rem;
 }
+.card__head{
+  display:flex;
+  justify-content:space-between;
+  align-items:baseline;
+  gap:.8rem;
+  padding:.85rem 0;
+  border-bottom:1px solid var(--ink-10);
+  font-size:.66rem;
+  font-weight:700;
+  letter-spacing:.11em;
+  text-transform:uppercase;
+  color:var(--accent);
+  font-variant-numeric:tabular-nums;
+}
+.card__head span:last-child{color:var(--ink-45);}
 .card__item{
   display:flex;
   flex-direction:column;
@@ -513,7 +528,38 @@ body[data-tint="1"]{background:var(--tint-final);}
 }
 @keyframes slam{from{opacity:0; transform:rotate(-5deg) scale(1.7);} to{opacity:1; transform:rotate(-5deg) scale(1);}}
 
-.footnote{margin:1.5rem 0 0; font-size:.82rem; color:var(--ink-45);}
+.footnote{margin:1.1rem 0 0; font-size:.78rem; color:var(--ink-45);}
+
+/* инструкция: скрин и предъявить */
+.notice{
+  margin-top:1.4rem;
+  width:100%;
+  display:flex;
+  gap:.85rem;
+  align-items:flex-start;
+  text-align:left;
+  border:1.5px dashed var(--accent);
+  border-radius:16px;
+  padding:1.05rem 1.1rem;
+  background:var(--range-wash);
+}
+.notice__icon{flex:0 0 auto; color:var(--accent); margin-top:.15rem;}
+.notice__icon svg{display:block;}
+.notice__title{
+  margin:0 0 .3rem;
+  font-size:.98rem;
+  font-weight:700;
+  letter-spacing:-.01em;
+  color:var(--ink);
+}
+.notice__text{margin:0; font-size:.83rem; line-height:1.5; color:var(--ink-70);}
+@media (prefers-reduced-motion: no-preference){
+  .screen.is-active .notice{animation:noticein .5s var(--ease) .55s both;}
+}
+@keyframes noticein{
+  from{opacity:0; transform:translateY(10px);}
+  to{opacity:1; transform:translateY(0);}
+}
 </style>
 </head>
 <body>
@@ -716,6 +762,10 @@ body[data-tint="1"]{background:var(--tint-final);}
       <p class="body-text">Данные зафиксированы.</p>
 
       <div class="card">
+        <div class="card__head">
+          <span>Пропуск гостя</span>
+          <span>№ 28/08-26</span>
+        </div>
         <div class="card__item">
           <span class="card__key">Имя</span>
           <span class="card__val" id="sumName">—</span>
@@ -745,9 +795,19 @@ body[data-tint="1"]{background:var(--tint-final);}
             </div>
           </div>
           <div class="sign__foot">
-            <p class="sign__meta">Документ № 28/08-26. Подписан электронно, имеет юридическую силу.</p>
+            <p class="sign__meta">Подписан электронно, имеет юридическую силу.</p>
             <div class="stamp"><b>Принято</b><span id="stampDate">—</span></div>
           </div>
+        </div>
+      </div>
+
+      <div class="notice">
+        <span class="notice__icon" aria-hidden="true">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h3l1.5-2h9L18 8h3v11H3z"/><circle cx="12" cy="13" r="3.4"/></svg>
+        </span>
+        <div>
+          <p class="notice__title">Сделайте скриншот этой страницы</p>
+          <p class="notice__text">Пропуск предъявляется Егору при заселении. Без него гость не допускается.</p>
         </div>
       </div>
 
