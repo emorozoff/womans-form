@@ -760,7 +760,7 @@ body[data-tint="1"]{background:var(--tint-final);}
 <div class="modal" id="modal" hidden>
   <div class="modal__backdrop" data-close></div>
   <div class="modal__box" role="alertdialog" aria-modal="true" aria-labelledby="modalText">
-    <p class="modal__text" id="modalText">Выбрать можно минимум 3 позиции</p>
+    <p class="modal__text" id="modalText">Выбрать можно минимум 4 позиции</p>
     <button class="btn-primary" type="button" id="modalOk" data-close>Понятно</button>
   </div>
 </div>
@@ -893,7 +893,7 @@ body[data-tint="1"]{background:var(--tint-final);}
   var progNext = document.getElementById('progNext');
 
   progNext.addEventListener('click', function(){
-    if (document.querySelectorAll('#program input:checked').length < 3) {
+    if (document.querySelectorAll('#program input:checked').length < 4) {
       openModal();
       return;
     }
